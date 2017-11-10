@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/color"
+        android:enabled="true"
+        android:icon="@drawable/colour_bubble"
+        android:title="Color Test" />
+    <item
+        android:id="@+id/eye"
+        android:enabled="true"
+        android:icon="@drawable/eye_bubble"
+        android:title="Eye Test" />
+    <item
+        android:id="@+id/hearing"
+        android:enabled="true"
+        android:icon="@drawable/hearing_bubble"
+        android:title="Hearing Test" />
+</menu>
