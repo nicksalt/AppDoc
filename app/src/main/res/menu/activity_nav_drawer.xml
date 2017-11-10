@@ -25,7 +25,7 @@
                             android:title="Help" />
                         <item
                             android:id="@+id/nav_rate"
-                            android:icon="@mipmap/ic_feedback_black_24dp"
+                            android:icon="@drawable/ic_feedback"
                             android:title="Rate and Review" />
                 </menu>
         </item>
