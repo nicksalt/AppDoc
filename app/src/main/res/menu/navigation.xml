@@ -3,16 +3,16 @@
     <item
         android:id="@+id/color"
         android:enabled="true"
-        android:icon="@drawable/colour_bubble"
+        android:icon="@drawable/ic_palette"
         android:title="Color Test" />
     <item
         android:id="@+id/eye"
         android:enabled="true"
-        android:icon="@drawable/eye_bubble"
+        android:icon="@drawable/ic_eye_test"
         android:title="Eye Test" />
     <item
         android:id="@+id/hearing"
         android:enabled="true"
-        android:icon="@drawable/hearing_bubble"
+        android:icon="@drawable/ic_hearing"
         android:title="Hearing Test" />
 </menu>
