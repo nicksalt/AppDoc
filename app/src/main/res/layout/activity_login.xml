@@ -33,6 +33,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:visibility="visible"
+            android:id="@+id/layout_login_buttons"
             android:layout_centerInParent="true">
         <com.firebase.ui.auth.ui.idp.SupportVectorDrawablesButton
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -52,13 +54,83 @@
             android:id="@+id/facebook_button"
             style="@style/FirebaseUI.Button.AccountChooser.FacebookButton"
             android:text="@string/fui_sign_in_with_facebook" />
-
         <Button
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="55dp"
             android:text="Go To Home (Temporary)"
             android:id="@+id/go_to_home_button"/>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="invisible"
+            android:id="@+id/layout_email_address"
+            android:layout_centerInParent="true">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Enter Email Address"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/email_text"
+                android:hint="Email"
+                android:inputType="textEmailAddress"/>
+        </LinearLayout>
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        android:id="@+id/layout_password_login"
+        android:layout_centerInParent="true">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/password_login"
+            android:hint="Enter Password"
+            android:inputType="textPassword"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="invisible"
+            android:id="@+id/layout_password_sign_up"
+            android:layout_centerInParent="true">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Enter First &amp; Last Name"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/name_sign_up"
+                android:hint="John Doe"
+                android:inputType="textPersonName"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Enter Password"
+                android:layout_marginTop="@dimen/activity_vertical_margin"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/password_sign_up"
+                android:hint="Password"
+                android:inputType="textPassword"/>
+        </LinearLayout>
     </RelativeLayout>
-
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="16sp"
+        android:textColor="@color/colorAccent"
+        android:background="@color/colorPrimaryDark"
+        android:id="@+id/email_continue_button"
+        android:shadowColor="@color/cardview_shadow_end_color"
+        android:visibility="gone"
+        android:text="Next" />
 </LinearLayout>
