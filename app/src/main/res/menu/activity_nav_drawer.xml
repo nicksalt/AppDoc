@@ -25,5 +25,15 @@
                             android:title="Rate and Review" />
                 </menu>
         </item>
+        <item android:title="Account">
+                <menu>
+                        <item
+                            android:id="@+id/nav_sign_out"
+                            android:icon="@drawable/ic_account_circle"
+                            android:title="Sign Out"/>
+
+                </menu>
+
+        </item>
 
 </menu>

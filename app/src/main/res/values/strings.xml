@@ -7,21 +7,26 @@
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_results">Results</string>
-    <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
-    <string name="facebook_application_id" translatable="false">396386264114235</string>
-    <string name="facebook_login_protocol_scheme" translatable="false">fb396386264114235</string>
-    <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_login">Login</string>
 
-    <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
-    <string name="error_incorrect_password">This password is incorrect</string>
-    <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+    <string name="AppDoc_login_greeting">Please sign in to enjoy the AppDoc experience!</string>
+    <string name="enter_email_request">Please enter your email</string>
+    <string name="enter_password_request_login">Please enter your password.</string>
+    <string name="enter_password_request_sign_up">Please enter a password.</string>
+    <string name="invalid_email">Invalid email address.</string>
+    <string name="password_longer">Password must be longer than 6 characters</string>
+    <string name="password_does_not_match">Password does not match password on file. Try Again.</string>
+    <string name="server_error">Unable to reach server. Please check internet connection and try again.</string>
+    <string name="google_sign_in_failed">Google sign in failed.</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="next">Next</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="loading">Loading...</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="forgot_email_sent">Password reset email sent!</string>
+    <string name="forgot_email_failed">Password reset email failed.</string>
+
 </resources>
+

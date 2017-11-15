@@ -15,9 +15,13 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class ResultsActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private TextView mTextMessage;
+
+    private FirebaseAuth auth;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -51,6 +55,7 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        auth = FirebaseAuth.getInstance();
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -97,6 +102,10 @@ public class ResultsActivity extends AppCompatActivity implements NavigationView
 
         if (id == R.id.nav_home) {
             startActivity(new Intent(ResultsActivity.this, HomeActivity.class));
+        } else if (id == R.id.nav_sign_out){
+            auth.signOut();
+            startActivity(new Intent(ResultsActivity.this, LoginActivity.class));
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
