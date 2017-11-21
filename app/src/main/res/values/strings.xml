@@ -27,6 +27,99 @@
     <string name="forgot_password">Forgot Password</string>
     <string name="forgot_email_sent">Password reset email sent!</string>
     <string name="forgot_email_failed">Password reset email failed.</string>
+    
+    <string name="colour_test_instructions_title">Before you begin the colour test, here are some important instructions:</string>
+    <string name="colour_test_instructions">1. Hold your device about a foot away from your eyes. \n2. Make sure you are
+        in a mild lightning environment, without any glare. \n3. Try to Identify the number or colour line on the plate
+        within a few seconds. Select the best option from the buttons displayed at the bottom of the screen. Note: if
+        you see nothing or the answer you think is correct is not displayed tap the “Nothing” button. In a few cases
+        it is the correct answer. \n4. After tapping on one of the answers a next button will appear, it will take you to
+        the next plate. \n5. Once you have completed the test, we will provide you with your score and some next steps.
+        \n6. If you are satisfied with the app please share it!</string>
+    <!-- FORMAT: Plate #, Correct Answer, Other Answer, (optional) Other Answer if
+    correct answer is Nothing-->
 
+    <integer-array name="red_green_color_test_plates">
+        <item>@drawable/colour_2</item>
+        <item>@drawable/colour_3</item>
+        <item>@drawable/colour_4</item>
+        <item>@drawable/colour_5</item>
+        <item>@drawable/colour_6</item>
+        <item>@drawable/colour_7</item>
+        <item>@drawable/colour_14</item>
+        <item>@drawable/colour_15</item>
+        <item>@drawable/colour_22</item>
+        <item>@drawable/colour_23</item>
+    </integer-array>
+
+    <string-array name="red_green_color_test_correct">
+        <item>8</item>
+        <item>29</item>
+        <item>5</item>
+        <item>3</item>
+        <item>15</item>
+        <item>74</item>
+        <item>Nothing</item>
+        <item>Nothing</item>
+        <item>Blue/Green/Yellow</item>
+        <item>Red/Orange</item>
+    </string-array>
+    <string-array name="red_green_color_test_incorrect_1">
+        <item>3</item>
+        <item>70</item>
+        <item>2</item>
+        <item>5</item>
+        <item>17</item>
+        <item>21</item>
+        <item>5</item>
+        <item>45</item>
+        <item>Blue/Green/Red</item>
+        <item>Red/Blue/Green</item>
+    </string-array>
+    <string-array name="red_green_color_test_incorrect_2">
+        <item />
+        <item/>
+        <item/>
+        <item/>
+        <item/>
+        <item/>
+        <item>6</item>
+        <item>8</item>
+        <item/>
+        <item/>
+    </string-array>
+
+
+    <integer-array name="total_color_test_plates">
+        <item>@drawable/colour_8</item>
+        <item>@drawable/colour_9</item>
+        <item>@drawable/colour_10</item>
+        <item>@drawable/colour_11</item>
+        <item>@drawable/colour_12</item>
+        <item>@drawable/colour_13</item>
+        <item>@drawable/colour_20</item>
+        <item>@drawable/colour_21</item>
+    </integer-array>
+    <string-array name="total_color_test_correct">
+        <item>6</item>
+        <item>45</item>
+        <item>5</item>
+        <item>7</item>
+        <item>16</item>
+        <item>73</item>
+        <item>Green</item>
+        <item>Orange</item>
+    </string-array>
+
+    <string-array name="total_color_test_incorrect">
+        <item>5</item>
+        <item>26</item>
+        <item>6</item>
+        <item>1</item>
+        <item>75</item>
+        <item>78</item>
+        <item>Blue</item>
+        <item>Blue</item>
+    </string-array>
 </resources>
 

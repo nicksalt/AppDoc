@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "715779193042",
+    "firebase_url": "https://appdoc-51101.firebaseio.com",
+    "project_id": "appdoc-51101",
+    "storage_bucket": "appdoc-51101.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:715779193042:android:4e1824e1e57e390c",
+        "android_client_info": {
+          "package_name": "ca.nicksalt.appdoc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "715779193042-10id0f6rrbaoale0t1mo1eqrac7u5slv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ca.nicksalt.appdoc",
+            "certificate_hash": "e1af15182641af5cf549103dde55ff006bb3822a"
+          }
+        },
+        {
+          "client_id": "715779193042-u74d3rvktv4bba2pprqkakqdugigh57t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxEY3ZItLQzXm4hv4404-2ktzRY7oUwns"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "715779193042-u74d3rvktv4bba2pprqkakqdugigh57t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
