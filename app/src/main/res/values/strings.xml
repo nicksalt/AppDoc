@@ -27,7 +27,7 @@
     <string name="forgot_password">Forgot Password</string>
     <string name="forgot_email_sent">Password reset email sent!</string>
     <string name="forgot_email_failed">Password reset email failed.</string>
-    
+
     <string name="colour_test_instructions_title">Before you begin the colour test, here are some important instructions:</string>
     <string name="colour_test_instructions">1. Hold your device about a foot away from your eyes. \n2. Make sure you are
         in a mild lightning environment, without any glare. \n3. Try to Identify the number or colour line on the plate
@@ -78,15 +78,15 @@
     </string-array>
     <string-array name="red_green_color_test_incorrect_2">
         <item />
-        <item/>
-        <item/>
-        <item/>
-        <item/>
-        <item/>
+        <item />
+        <item />
+        <item />
+        <item />
+        <item />
         <item>6</item>
         <item>8</item>
-        <item/>
-        <item/>
+        <item />
+        <item />
     </string-array>
 
 
@@ -121,5 +121,6 @@
         <item>Blue</item>
         <item>Blue</item>
     </string-array>
+    <string name="title_activity_hearing_test">HearingTestActivity</string>
 </resources>
 

@@ -44,10 +44,13 @@ public class LoginActivity extends AppCompatActivity implements
 
     private FirebaseAuth auth;
     private GoogleSignInClient mGoogleSignInClient;
-
+    private boolean debug = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(debug) {
+            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         //Set Views and onClicks

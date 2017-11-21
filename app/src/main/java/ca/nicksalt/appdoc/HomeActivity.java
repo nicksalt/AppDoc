@@ -41,6 +41,7 @@ public class HomeActivity extends BaseNavDrawerActivity implements View.OnClickL
         }
         //Button onClicks
         findViewById(R.id.colour_test).setOnClickListener(this);
+        findViewById(R.id.hearing_button).setOnClickListener(this);
     }
 
     @Override
@@ -49,6 +50,9 @@ public class HomeActivity extends BaseNavDrawerActivity implements View.OnClickL
 
         if (id == R.id.colour_test){
             startActivity(new Intent(HomeActivity.this, ColourTestActivity.class));
+        }else if (id == R.id.hearing_button){
+            startActivity(new Intent(HomeActivity.this, HearingTestActivity.class));
         }
+
     }
 }

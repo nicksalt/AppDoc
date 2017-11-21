@@ -39,8 +39,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ColourTestActivity"
-            android:theme="@style/AppTheme.Test">
-        </activity>
+            android:theme="@style/AppTheme.Test" />
+        <activity android:name=".HearingTestActivity"></activity>
     </application>
 
 </manifest>

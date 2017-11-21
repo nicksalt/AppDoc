@@ -13,7 +13,7 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-    
+
     <style name="AppTheme.Test" parent="AppTheme.NoActionBar">
         <!-- Want status bar to be the red color -->
         <item name="colorPrimaryDark">@color/colorPrimary</item>
