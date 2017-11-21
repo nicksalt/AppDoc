@@ -15,6 +15,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,7 +28,9 @@ import java.util.stream.Collectors;
 public class ColourTestActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button nextButton;
+    TextView description;
     int level = 0;
+    int buttonSelected;
     //Create random indexes
     List<Integer> randomIndexRedGreen;
     List<Integer> randomIndexTotal;
@@ -40,12 +44,16 @@ public class ColourTestActivity extends AppCompatActivity implements View.OnClic
     String[] totalIncorrect;
 
     ImageView plate;
+
     Button button1;
     Button button2;
     Button button3;
+    Button[] buttons;
 
-    String answer;
-    int correct = 0;
+    int correctRedGreen = 0;
+    int correctTotal = 0;
+    int correctButton; //1, 2, or 3
+    List<Integer> possibleCorrectButtons= Arrays.asList(0, 1, 2);
 
     final String TAG = "Colour Test";
 
@@ -77,6 +85,12 @@ public class ColourTestActivity extends AppCompatActivity implements View.OnClic
             findViewById(R.id.colour_test_instructions).setVisibility(View.GONE);
             startTest();
         } else if(view == nextButton && nextButton.getText() == "Next") {
+            if(buttonSelected == possibleCorrectButtons.get(0)){
+                if (level%2 == 1 || level==10)
+                    correctRedGreen++;
+                else
+                    correctTotal++;
+            }
             level++;
             button1.getBackground().clearColorFilter();
             button2.getBackground().clearColorFilter();
@@ -86,18 +100,21 @@ public class ColourTestActivity extends AppCompatActivity implements View.OnClic
             else
                 finishTest();
         } else if (view == button1) {
+            buttonSelected = 0;
             button1.getBackground().setColorFilter(ContextCompat.getColor(
                     this, R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
             button2.getBackground().clearColorFilter();
             button3.getBackground().clearColorFilter();
             nextButton.setVisibility(View.VISIBLE);
         } else if (view == button2) {
+            buttonSelected = 1;
             button2.getBackground().setColorFilter(ContextCompat.getColor(
                     this, R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
             button1.getBackground().clearColorFilter();
             button3.getBackground().clearColorFilter();
             nextButton.setVisibility(View.VISIBLE);
         } else if (view == button3) {
+            buttonSelected = 2;
             button3.getBackground().setColorFilter(ContextCompat.getColor(
                     this, R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
             button1.getBackground().clearColorFilter();
@@ -163,33 +180,45 @@ public class ColourTestActivity extends AppCompatActivity implements View.OnClic
         button1.setOnClickListener(this);
         button2.setOnClickListener(this);
         button3.setOnClickListener(this);
+        description = findViewById(R.id.colour_test_text);
+        buttons = new Button[]{button1, button2, button3};
         level++;
         setLevel();
     }
 
     public void setLevel(){
         int index;
-        Log.d(TAG, level+"");
+        Collections.shuffle(possibleCorrectButtons);
+        boolean isLine = false;
         if (level%2 == 1 || level==10){
             index = randomIndexRedGreen.get(level-1);
+            if (index > 7)
+                isLine = true;
             plate.setImageDrawable(getResources().getDrawable(redGreenPlates.getResourceId(index, 0)));
-            button1.setText(redGreenCorrect[index]);
-            button2.setText(redGreenIncorrect1[index]);
+            buttons[possibleCorrectButtons.get(0)].setText(redGreenCorrect[index]);
+            buttons[possibleCorrectButtons.get(1)].setText(redGreenIncorrect1[index]);
             if (redGreenIncorrect2[index].length() > 0)
-                button3.setText(redGreenIncorrect2[index]);
+                buttons[possibleCorrectButtons.get(2)].setText(redGreenIncorrect2[index]);
             else
-                button3.setText("Nothing");
+                buttons[possibleCorrectButtons.get(2)].setText("Nothing");
         } else {
-            index = randomIndexTotal.get(level-1);
-            Log.d(TAG, ""+index);
+            index = randomIndexTotal.get(level-2);
+            if (index > 5)
+                isLine = true;
             plate.setImageDrawable(getResources().getDrawable(totalPlates.getResourceId(index, 0)));
-            button1.setText(totalCorrect[index]);
-            button2.setText(totalIncorrect[index]);
-            button3.setText("Nothing");
+            buttons[possibleCorrectButtons.get(0)].setText(totalCorrect[index]);
+            buttons[possibleCorrectButtons.get(1)].setText(totalIncorrect[index]);
+            buttons[possibleCorrectButtons.get(2)].setText("Nothing");
         }
+        if(isLine)
+            description.setText("What colour line do you see?");
+        else
+            description.setText("What number do you see?");
     }
 
-    public void finishTest(){}
+    public void finishTest(){
+        Toast.makeText(this, correctRedGreen + " " + correctTotal, Toast.LENGTH_LONG).show();
+    }
 
 }
 
