@@ -1,12 +1,14 @@
 package ca.nicksalt.appdoc;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.graphics.PorterDuff;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -52,6 +54,8 @@ public class ColourTestActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_colour_test);
         nextButton = findViewById(R.id.colour_test_next);
+        nextButton.getBackground().setColorFilter(ContextCompat.getColor(
+                this, R.color.colorPrimaryDark), PorterDuff.Mode.MULTIPLY);
         new CountDownTimer(6000, 1000) {
             @SuppressLint("SetTextI18n")
             public void onTick(long millisUntilFinished) {
@@ -77,7 +81,10 @@ public class ColourTestActivity extends AppCompatActivity implements View.OnClic
             button1.getBackground().clearColorFilter();
             button2.getBackground().clearColorFilter();
             button3.getBackground().clearColorFilter();
-            setLevel();
+            if (level<=10)
+                setLevel();
+            else
+                finishTest();
         } else if (view == button1) {
             button1.getBackground().setColorFilter(ContextCompat.getColor(
                     this, R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
@@ -96,6 +103,29 @@ public class ColourTestActivity extends AppCompatActivity implements View.OnClic
             button1.getBackground().clearColorFilter();
             button2.getBackground().clearColorFilter();
             nextButton.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onBackPressed(){
+        if (findViewById(R.id.colour_test_instructions).getVisibility() ==
+                View.VISIBLE){
+            finish();
+            super.onBackPressed();
+        } else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage("Would you like to exit this test?")
+                    .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            ColourTestActivity.super.onBackPressed();
+                        }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            builder.show();
         }
     }
 
@@ -159,7 +189,7 @@ public class ColourTestActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-
+    public void finishTest(){}
 
 }
 

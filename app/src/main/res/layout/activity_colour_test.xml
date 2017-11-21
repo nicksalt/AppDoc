@@ -65,38 +65,38 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         android:id="@+id/colour_test_button_selections"
         android:visibility="gone"
-        android:layout_weight="2">
+        android:layout_weight="2.5">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:textSize="16sp"
+            android:id="@+id/colour_test_text"
             android:layout_alignParentTop="true"
             android:text="What do you see?"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="bottom"
             android:layout_alignParentBottom="true"
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/colour_test_button_1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:id="@+id/colour_test_button_1"/>
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
 
             <Button
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:id="@+id/colour_test_button_2"/>
 
             <Button
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:id="@+id/colour_test_button_3"/>
 
@@ -114,9 +114,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:background="@color/colorPrimaryDark"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
             android:textAllCaps="false"
             android:textColor="@color/colorAccent"
             android:textSize="16sp" />
