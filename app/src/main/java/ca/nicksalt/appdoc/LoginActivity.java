@@ -44,7 +44,7 @@ public class LoginActivity extends AppCompatActivity implements
 
     private FirebaseAuth auth;
     private GoogleSignInClient mGoogleSignInClient;
-    private boolean debug = false;
+    private boolean debug = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
