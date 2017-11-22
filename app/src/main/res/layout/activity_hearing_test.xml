@@ -8,10 +8,68 @@
 
 
     <LinearLayout
+        android:id="@+id/resultsPage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="invisible"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="53dp">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="113dp"
+            android:paddingVertical="10dp"
+            app:srcCompat="@drawable/hearing_bubble" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="30dp"
+            android:text="Hearing Results"
+            android:textAlignment="center"
+            android:textSize="40sp" />
+
+        <TextView
+            android:id="@+id/highfreq"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:paddingHorizontal="10dp"
+            android:text="Highest Frequency: 7,645Hz"
+            android:textAlignment="textStart"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/estAge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:paddingHorizontal="10dp"
+            android:text="Estimated Age Range: 80+"
+            android:textAlignment="textStart"
+            android:textSize="20sp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="52dp" />
+
+        <Button
+            android:id="@+id/finishButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Finish" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/test"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="invisible">
 
         <TextView
             android:id="@+id/textView5"
@@ -31,9 +89,10 @@
 
         <ProgressBar
             android:id="@+id/frequency"
-            style="?android:attr/progressBarStyleHorizontal"
+            style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal"
             android:layout_width="match_parent"
-            android:layout_height="39dp" />
+            android:layout_height="52dp"
+            android:progressTint="@android:color/holo_blue_bright" />
 
         <Button
             android:id="@+id/playButton"
@@ -73,16 +132,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="invisible"
+        android:visibility="visible"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="80dp"
         tools:layout_editor_absoluteY="0dp">
+
+        <ImageView
+            android:id="@+id/hearingIcon"
+            android:layout_width="match_parent"
+            android:layout_height="113dp"
+            android:paddingVertical="10dp"
+            app:srcCompat="@drawable/hearing_bubble" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="50dp"
+            android:paddingVertical="30dp"
             android:text="Hearing Test"
             android:textAlignment="center"
             android:textSize="50sp" />
