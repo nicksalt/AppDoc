@@ -44,13 +44,9 @@ public class LoginActivity extends AppCompatActivity implements
 
     private FirebaseAuth auth;
     private GoogleSignInClient mGoogleSignInClient;
-    private boolean debug = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if(debug) {
-            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
-        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         //Set Views and onClicks
@@ -65,7 +61,7 @@ public class LoginActivity extends AppCompatActivity implements
         findViewById(R.id.google_button).setOnClickListener(this);
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestIdToken(getString(R.string.google_web_client_ID))
                 .requestEmail()
                 .build();
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
@@ -303,6 +299,7 @@ public class LoginActivity extends AppCompatActivity implements
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 signInWithGoogle(account);
             } catch (ApiException e) {
+                e.printStackTrace();
                 Toast.makeText(this, getString(R.string.google_sign_in_failed), Toast.LENGTH_SHORT).show();
             }
         }

@@ -2,11 +2,11 @@ package ca.nicksalt.appdoc;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.PorterDuff;
+import android.net.Uri;
 import android.os.CountDownTimer;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -16,18 +16,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.firebase.ui.auth.User;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
-import java.util.stream.Collectors;
 
 public class ColourTestActivity extends AppCompatActivity implements View.OnClickListener {
 
     Button nextButton;
+    Button optometrist;
+    Button share;
     TextView description;
     int level = 0;
     int buttonSelected;
@@ -52,10 +56,7 @@ public class ColourTestActivity extends AppCompatActivity implements View.OnClic
 
     int correctRedGreen = 0;
     int correctTotal = 0;
-    int correctButton; //1, 2, or 3
     List<Integer> possibleCorrectButtons= Arrays.asList(0, 1, 2);
-
-    final String TAG = "Colour Test";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +72,7 @@ public class ColourTestActivity extends AppCompatActivity implements View.OnClic
             }
 
             public void onFinish() {
-                nextButton.setText("Start Test");
+                nextButton.setText(getString(R.string.start_test));
                 nextButton.setOnClickListener(ColourTestActivity.this);
             }
         }.start();
@@ -80,11 +81,11 @@ public class ColourTestActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View view) {
         //Click Button during instructions
-        if (view == nextButton && nextButton.getText() == "Start Test") {
+        if (view == nextButton && nextButton.getText() == getString(R.string.start_test)) {
             findViewById(R.id.colour_test_top_icon).setVisibility(View.GONE);
             findViewById(R.id.colour_test_instructions).setVisibility(View.GONE);
             startTest();
-        } else if(view == nextButton && nextButton.getText() == "Next") {
+        } else if(view == nextButton && nextButton.getText() == getString(R.string.next)) {
             if(buttonSelected == possibleCorrectButtons.get(0)){
                 if (level%2 == 1 || level==10)
                     correctRedGreen++;
@@ -120,12 +121,16 @@ public class ColourTestActivity extends AppCompatActivity implements View.OnClic
             button1.getBackground().clearColorFilter();
             button2.getBackground().clearColorFilter();
             nextButton.setVisibility(View.VISIBLE);
+        } else if(view == optometrist) {
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("https://www.google.com/maps/search/?api=1&query=optometrist+near+me"));
+            startActivity(mapIntent);
         }
     }
 
     @Override
     public void onBackPressed(){
-        if (findViewById(R.id.colour_test_instructions).getVisibility() ==
+        if (findViewById(R.id.colour_test_top_icon).getVisibility() ==
                 View.VISIBLE){
             finish();
             super.onBackPressed();
@@ -144,6 +149,13 @@ public class ColourTestActivity extends AppCompatActivity implements View.OnClic
                     });
             builder.show();
         }
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        if (findViewById(R.id.colour_test_test_completed_buttons).getVisibility() == View.VISIBLE)
+            super.onBackPressed();
     }
 
     public void startTest() {
@@ -171,8 +183,7 @@ public class ColourTestActivity extends AppCompatActivity implements View.OnClic
         // Set first level
         findViewById(R.id.colour_test_plate_layout).setVisibility(View.VISIBLE);
         findViewById(R.id.colour_test_button_selections).setVisibility(View.VISIBLE);
-        nextButton.setVisibility(View.INVISIBLE);
-        nextButton.setText("Next");
+        nextButton.setText(getString(R.string.next));
         plate = findViewById(R.id.colour_test_plate);
         button1 = findViewById(R.id.colour_test_button_1);
         button2 = findViewById(R.id.colour_test_button_2);
@@ -187,6 +198,7 @@ public class ColourTestActivity extends AppCompatActivity implements View.OnClic
     }
 
     public void setLevel(){
+        nextButton.setVisibility(View.INVISIBLE);
         int index;
         Collections.shuffle(possibleCorrectButtons);
         boolean isLine = false;
@@ -200,7 +212,7 @@ public class ColourTestActivity extends AppCompatActivity implements View.OnClic
             if (redGreenIncorrect2[index].length() > 0)
                 buttons[possibleCorrectButtons.get(2)].setText(redGreenIncorrect2[index]);
             else
-                buttons[possibleCorrectButtons.get(2)].setText("Nothing");
+                buttons[possibleCorrectButtons.get(2)].setText(getString(R.string.nothing));
         } else {
             index = randomIndexTotal.get(level-2);
             if (index > 5)
@@ -208,16 +220,48 @@ public class ColourTestActivity extends AppCompatActivity implements View.OnClic
             plate.setImageDrawable(getResources().getDrawable(totalPlates.getResourceId(index, 0)));
             buttons[possibleCorrectButtons.get(0)].setText(totalCorrect[index]);
             buttons[possibleCorrectButtons.get(1)].setText(totalIncorrect[index]);
-            buttons[possibleCorrectButtons.get(2)].setText("Nothing");
+            buttons[possibleCorrectButtons.get(2)].setText(getString(R.string.nothing));
         }
         if(isLine)
-            description.setText("What colour line do you see?");
+            description.setText(getString(R.string.color_test_line_desc));
         else
-            description.setText("What number do you see?");
+            description.setText(getString(R.string.color_test_number_desc));
     }
 
+    @SuppressLint("SetTextI18n")
     public void finishTest(){
-        Toast.makeText(this, correctRedGreen + " " + correctTotal, Toast.LENGTH_LONG).show();
+        // Hide Views
+        findViewById(R.id.colour_test_plate_layout).setVisibility(View.GONE);
+        findViewById(R.id.colour_test_button_selections).setVisibility(View.GONE);
+        findViewById(R.id.colour_test_next_layout).setVisibility(View.GONE);
+        //Show Views
+        findViewById(R.id.colour_test_top_icon).setVisibility(View.VISIBLE);
+        findViewById(R.id.colour_test_test_completed_text).setVisibility(View.VISIBLE);
+        findViewById(R.id.colour_test_test_completed_buttons).setVisibility(View.VISIBLE);
+        //Get Buttons
+        optometrist = findViewById(R.id.colour_test_optometrist_button);
+        share = findViewById(R.id.colour_test_share_button);
+        //Make Them Blue
+        optometrist.getBackground().setColorFilter(ContextCompat.getColor(
+                this, R.color.colorPrimaryDark), PorterDuff.Mode.MULTIPLY);
+        share.getBackground().setColorFilter(ContextCompat.getColor(
+                this, R.color.colorPrimaryDark), PorterDuff.Mode.MULTIPLY);
+        optometrist.setOnClickListener(this);
+        share.setOnClickListener(this);
+        ((TextView)findViewById(R.id.colour_test_score)).setText(getString(R.string.colour_test_score)+ " "
+                + (correctRedGreen+correctTotal) + "/10");
+        if (correctTotal < 4)
+            ((TextView)findViewById(R.id.colour_test_diagnostic)).setText(R.string.colour_test_diagnostic_total);
+        else if (correctRedGreen < 6)
+            ((TextView)findViewById(R.id.colour_test_diagnostic)).setText(R.string.colour_test_diagnostic_red_green);
+        else
+            ((TextView)findViewById(R.id.colour_test_diagnostic)).setText(R.string.colour_test_diagnostic_perfect);
+
+        DatabaseReference database =  FirebaseDatabase.getInstance().getReference();
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        Log.d("TEST", userId);
+        if (userId!=null)
+            database.child("users").child(userId).child("s").setValue("TESTING");
     }
 
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,7 +19,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:src="@drawable/colour_bubble"/>
+        android:src="@drawable/colour_bubble"
+        tools:ignore="ContentDescription" />
     </RelativeLayout>
 
     <LinearLayout
@@ -46,6 +48,41 @@
         </ScrollView>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:id="@+id/colour_test_test_completed_text"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:layout_weight="5">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textAllCaps="true"
+            android:textStyle="bold"
+            android:text="@string/colour_test_completed"
+            android:textSize="22sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:id="@+id/colour_test_score"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:textSize="18sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/colour_test_diagnostic"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:textSize="16sp"/>
+
+    </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -57,7 +94,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/colour_test_plate"
-            android:layout_centerHorizontal="true"/>
+            android:layout_centerHorizontal="true"
+            tools:ignore="ContentDescription" />
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -73,8 +111,7 @@
             android:textAlignment="center"
             android:textSize="16sp"
             android:id="@+id/colour_test_text"
-            android:layout_alignParentTop="true"
-            android:text="What do you see?"/>
+            android:layout_alignParentTop="true"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -106,6 +143,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:visibility="visible"
+        android:id="@+id/colour_test_next_layout"
         android:layout_marginTop="@dimen/activity_vertical_margin">
 
         <Button
@@ -116,7 +155,47 @@
             android:layout_centerHorizontal="true"
             android:textAllCaps="false"
             android:textColor="@color/colorAccent"
+            android:background="@color/colorPrimaryDark"
             android:textSize="16sp" />
 
     </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:visibility="gone"
+        android:id="@+id/colour_test_test_completed_buttons">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerInParent="true">
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_eye_test_white"
+                android:textColor="@color/colorAccent"
+                android:id="@+id/colour_test_optometrist_button"
+                android:textAllCaps="false"
+                android:text="@string/find_an_optometrist"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:text="@string/forget_share"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_share_white"
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent"
+                android:id="@+id/colour_test_share_button"
+                android:text="@string/share"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
 </LinearLayout>

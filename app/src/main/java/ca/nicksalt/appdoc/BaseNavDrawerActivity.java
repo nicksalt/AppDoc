@@ -59,7 +59,6 @@ public abstract class BaseNavDrawerActivity extends AppCompatActivity implements
         } else if (id == R.id.nav_sign_out){
             auth.signOut();
             startActivity(new Intent(BaseNavDrawerActivity.this, LoginActivity.class));
-            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">AppDoc</string>
     <string name="title_activity_nav">@string/app_name</string>
+    <string name="google_web_client_ID">715779193042-u74d3rvktv4bba2pprqkakqdugigh57t.apps.googleusercontent.com</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -8,6 +9,8 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_results">Results</string>
     <string name="title_activity_login">Login</string>
+    <string name="start_test">Start Test</string>
+    <string name="nothing">Nothing</string>
 
     <string name="AppDoc_login_greeting">Please sign in to enjoy the AppDoc experience!</string>
     <string name="enter_email_request">Please enter your email</string>
@@ -23,7 +26,7 @@
     <string name="next">Next</string>
     <string name="login">Login</string>
     <string name="sign_up">Sign Up</string>
-    <string name="loading">Loading...</string>
+    <string name="loading">Loading…</string>
     <string name="forgot_password">Forgot Password</string>
     <string name="forgot_email_sent">Password reset email sent!</string>
     <string name="forgot_email_failed">Password reset email failed.</string>
@@ -36,7 +39,22 @@
         it is the correct answer. \n4. After tapping on one of the answers a next button will appear, it will take you to
         the next plate. \n5. Once you have completed the test, we will provide you with your score and some next steps.
         \n6. If you are satisfied with the app please share it!</string>
-
+    <string name="color_test_line_desc">What colour line do you see?</string>
+    <string name="color_test_number_desc">What number do you see?</string>
+    <string name="colour_test_completed">Colour Test Completed</string>
+    <string name="colour_test_score">Your score was: </string>
+    <string name="colour_test_diagnostic_red_green">We think you may be red-green colour deficient. To undergo a more
+        accurate test, make an appointment with an optometrist. If you currently don\'t have one click below to find an
+        optometrist near you."</string>
+    <string name="colour_test_diagnostic_total">Your test revealed that you may be colorblind. To undergo a more
+        accurate test, make an appointment with an optometrist. If you currently don\'t have one click below to find an
+        optometrist near you.</string>
+    <string name="colour_test_diagnostic_perfect">Our test shows that you are not color blind. Although, it never hurts
+        to get a second opinion. To undergo a more accurate test, make an appointment with an optometrist. If you currently
+        don\'t have one click below to find an optometrist near you.</string>
     <string name="title_activity_hearing_test">HearingTestActivity</string>
+    <string name="find_an_optometrist">Find an Optometrist</string>
+    <string name="forget_share">Don\'t Forget to Share</string>
+    <string name="share">Share</string>
 </resources>
 
