@@ -11,16 +11,17 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.firebase.ui.auth.User;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,15 +30,12 @@ import java.util.List;
 
 public class ColourTestActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button nextButton;
-    Button optometrist;
-    Button share;
-    TextView description;
-    int level = 0;
-    int buttonSelected;
+
     //Create random indexes
     List<Integer> randomIndexRedGreen;
     List<Integer> randomIndexTotal;
+    List<Integer> possibleCorrectButtons= Arrays.asList(0, 1, 2);
+
     // Access resources
     TypedArray redGreenPlates;
     String[] redGreenCorrect;
@@ -47,24 +45,32 @@ public class ColourTestActivity extends AppCompatActivity implements View.OnClic
     String[] totalCorrect;
     String[] totalIncorrect;
 
+    // Layout items
+    TextView description;
     ImageView plate;
-
+    Button nextButton;
+    Button optometrist;
+    Button share;
     Button button1;
     Button button2;
     Button button3;
     Button[] buttons;
 
+    // Keep track of totals, buttons last selected, etc.
     int correctRedGreen = 0;
     int correctTotal = 0;
-    List<Integer> possibleCorrectButtons= Arrays.asList(0, 1, 2);
+    int level = 0;
+    int buttonSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_colour_test);
         nextButton = findViewById(R.id.colour_test_next);
+        //Make Button Blue
         nextButton.getBackground().setColorFilter(ContextCompat.getColor(
                 this, R.color.colorPrimaryDark), PorterDuff.Mode.MULTIPLY);
+        //Make countdown button, force user to read instructions
         new CountDownTimer(6000, 1000) {
             @SuppressLint("SetTextI18n")
             public void onTick(long millisUntilFinished) {
@@ -85,7 +91,9 @@ public class ColourTestActivity extends AppCompatActivity implements View.OnClic
             findViewById(R.id.colour_test_top_icon).setVisibility(View.GONE);
             findViewById(R.id.colour_test_instructions).setVisibility(View.GONE);
             startTest();
-        } else if(view == nextButton && nextButton.getText() == getString(R.string.next)) {
+        } // Click next button during test
+        else if(view == nextButton && nextButton.getText() == getString(R.string.next)) {
+            // Selected the right choice
             if(buttonSelected == possibleCorrectButtons.get(0)){
                 if (level%2 == 1 || level==10)
                     correctRedGreen++;
@@ -100,7 +108,8 @@ public class ColourTestActivity extends AppCompatActivity implements View.OnClic
                 setLevel();
             else
                 finishTest();
-        } else if (view == button1) {
+        } //Button 1, Button 2, or Button 3 selected during test
+        else if (view == button1) {
             buttonSelected = 0;
             button1.getBackground().setColorFilter(ContextCompat.getColor(
                     this, R.color.colorPrimary), PorterDuff.Mode.MULTIPLY);
@@ -121,20 +130,30 @@ public class ColourTestActivity extends AppCompatActivity implements View.OnClic
             button1.getBackground().clearColorFilter();
             button2.getBackground().clearColorFilter();
             nextButton.setVisibility(View.VISIBLE);
-        } else if(view == optometrist) {
+        } //Optometrist button selected
+        else if(view == optometrist) {
             Intent mapIntent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse("https://www.google.com/maps/search/?api=1&query=optometrist+near+me"));
             startActivity(mapIntent);
+        }
+        else if (view == share){
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out AppDoc, the new greatest app available on Android! ");
+            shareIntent.setType("text/plain");
+            startActivity(Intent.createChooser(shareIntent, "Share with:"));
         }
     }
 
     @Override
     public void onBackPressed(){
+        // If the Test is done OR instructions are being viewed, go back to the home screen.
         if (findViewById(R.id.colour_test_top_icon).getVisibility() ==
                 View.VISIBLE){
             finish();
             super.onBackPressed();
-        } else {
+        } // If doing test, check to make sure they really want to quit
+        else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage("Would you like to exit this test?")
                     .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
@@ -154,6 +173,7 @@ public class ColourTestActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onResume(){
         super.onResume();
+        // Coming back to app from either selecting optometrist or share button.
         if (findViewById(R.id.colour_test_test_completed_buttons).getVisibility() == View.VISIBLE)
             super.onBackPressed();
     }
@@ -200,8 +220,12 @@ public class ColourTestActivity extends AppCompatActivity implements View.OnClic
     public void setLevel(){
         nextButton.setVisibility(View.INVISIBLE);
         int index;
+        //  Shuffle to mix up which button is used as the correct one
         Collections.shuffle(possibleCorrectButtons);
+        //Use to set text, either a line or a number
         boolean isLine = false;
+        // use 6 red green and 4 total plates
+        //If level is 1, 3, 5, 7, 9, 10 : set plate to red green
         if (level%2 == 1 || level==10){
             index = randomIndexRedGreen.get(level-1);
             if (index > 7)
@@ -213,7 +237,8 @@ public class ColourTestActivity extends AppCompatActivity implements View.OnClic
                 buttons[possibleCorrectButtons.get(2)].setText(redGreenIncorrect2[index]);
             else
                 buttons[possibleCorrectButtons.get(2)].setText(getString(R.string.nothing));
-        } else {
+        }  //Otherwise set plate to a total color blindness one
+        else {
             index = randomIndexTotal.get(level-2);
             if (index > 5)
                 isLine = true;
@@ -234,6 +259,7 @@ public class ColourTestActivity extends AppCompatActivity implements View.OnClic
         findViewById(R.id.colour_test_plate_layout).setVisibility(View.GONE);
         findViewById(R.id.colour_test_button_selections).setVisibility(View.GONE);
         findViewById(R.id.colour_test_next_layout).setVisibility(View.GONE);
+
         //Show Views
         findViewById(R.id.colour_test_top_icon).setVisibility(View.VISIBLE);
         findViewById(R.id.colour_test_test_completed_text).setVisibility(View.VISIBLE);
@@ -241,6 +267,7 @@ public class ColourTestActivity extends AppCompatActivity implements View.OnClic
         //Get Buttons
         optometrist = findViewById(R.id.colour_test_optometrist_button);
         share = findViewById(R.id.colour_test_share_button);
+
         //Make Them Blue
         optometrist.getBackground().setColorFilter(ContextCompat.getColor(
                 this, R.color.colorPrimaryDark), PorterDuff.Mode.MULTIPLY);
@@ -248,6 +275,8 @@ public class ColourTestActivity extends AppCompatActivity implements View.OnClic
                 this, R.color.colorPrimaryDark), PorterDuff.Mode.MULTIPLY);
         optometrist.setOnClickListener(this);
         share.setOnClickListener(this);
+
+        //Set Text Views depending on results
         ((TextView)findViewById(R.id.colour_test_score)).setText(getString(R.string.colour_test_score)+ " "
                 + (correctRedGreen+correctTotal) + "/10");
         if (correctTotal < 4)
@@ -256,12 +285,29 @@ public class ColourTestActivity extends AppCompatActivity implements View.OnClic
             ((TextView)findViewById(R.id.colour_test_diagnostic)).setText(R.string.colour_test_diagnostic_red_green);
         else
             ((TextView)findViewById(R.id.colour_test_diagnostic)).setText(R.string.colour_test_diagnostic_perfect);
-
-        DatabaseReference database =  FirebaseDatabase.getInstance().getReference();
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        Log.d("TEST", userId);
-        if (userId!=null)
-            database.child("users").child(userId).child("s").setValue("TESTING");
+        // Upload results to Database.. if there are issues it may return nullPointerException
+        try {
+            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            //Set to final array because it is being accessed in an inner class
+            final DatabaseReference[] database = {FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("color-test")};
+            database[0].addValueEventListener(new ValueEventListener() {
+                boolean ran = false;
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getKey().equals("color-test") && !ran) {
+                        // Just to be sure it doesn't keep iterating over the same node
+                        ran=true;
+                        database[0] = database[0].child("Test" + String.valueOf(dataSnapshot.getChildrenCount() + 1));
+                        database[0].child("RedGreen").setValue(correctRedGreen);
+                        database[0].child("TotalGreen").setValue(correctTotal);
+                        database[0].child("Time").setValue(System.currentTimeMillis());
+                    }
+                }
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+        } catch (NullPointerException e){
+            e.printStackTrace();
+        }
     }
 
 }
