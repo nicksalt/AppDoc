@@ -12,9 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="invisible"
+        android:visibility="visible"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="53dp">
+        tools:layout_editor_absoluteY="0dp">
 
         <ImageView
             android:id="@+id/imageView2"
@@ -24,13 +24,16 @@
             app:srcCompat="@drawable/hearing_bubble" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="30dp"
-            android:text="Hearing Results"
+            android:paddingVertical="20dp"
+            android:text="Hearing Test Completed"
             android:textAlignment="center"
-            android:textSize="40sp" />
+            android:textAllCaps="true"
+            android:textColor="@color/colorPrimary"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/highfreq"
@@ -60,7 +63,8 @@
             android:id="@+id/finishButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Finish" />
+            android:text="Finish"
+            android:textColor="@color/colorAccent" />
 
     </LinearLayout>
 
@@ -132,7 +136,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:visibility="visible"
+        android:visibility="invisible"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="80dp"
         tools:layout_editor_absoluteY="0dp">

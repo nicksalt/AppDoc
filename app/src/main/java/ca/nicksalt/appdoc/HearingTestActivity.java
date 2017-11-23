@@ -3,10 +3,12 @@ package ca.nicksalt.appdoc;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
 import android.os.CountDownTimer;
 import android.os.Looper;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,6 +17,13 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
@@ -193,8 +202,12 @@ public class HearingTestActivity extends AppCompatActivity {
 
 
     private void endGame(boolean finished){
+
         examPage.setVisibility(View.INVISIBLE);
         resultPage.setVisibility(View.VISIBLE);
+
+        final String[] dataPass = new String[2];
+
         if(finished){
             highestFreq.setText("Highest Frequency: 20,095Hz");
             estimatedAge.setText("Estimated Age Range: 6-10");
@@ -203,63 +216,119 @@ public class HearingTestActivity extends AppCompatActivity {
                 case 1:
                     highestFreq.setText("Highest Frequency: 9,305Hz");
                     estimatedAge.setText("Estimated Age Range: 70-79");
+                    dataPass[0] = "9305";
+                    dataPass[1] = "70-79";
                     break;
                 case 2:
                     highestFreq.setText("Highest Frequency: 10,288Hz");
                     estimatedAge.setText("Estimated Age Range: 65-69");
+                    dataPass[0] = "10288";
+                    dataPass[1] = "65-69";
                     break;
                 case 3:
                     highestFreq.setText("Highest Frequency: 12,323Hz");
                     estimatedAge.setText("Estimated Age Range: 50-64");
+                    dataPass[0] = "12323";
+                    dataPass[1] = "50-64";
                     break;
                 case 4:
                     highestFreq.setText("Highest Frequency: 13,852Hz");
                     estimatedAge.setText("Estimated Age Range: 45-49");
+                    dataPass[0] = "13852";
+                    dataPass[1] = "45-49";
                     break;
                 case 5:
                     highestFreq.setText("Highest Frequency: 14,285Hz");
                     estimatedAge.setText("Estimated Age Range: 40-44");
+                    dataPass[0] = "14285";
+                    dataPass[1] = "40-44";
                     break;
                 case 6:
                     highestFreq.setText("Highest Frequency: 15,115Hz");
                     estimatedAge.setText("Estimated Age Range: 35-39");
+                    dataPass[0] = "15115";
+                    dataPass[1] = "35-39";
                     break;
                 case 7:
                     highestFreq.setText("Highest Frequency: 16,427Hz");
                     estimatedAge.setText("Estimated Age Range: 30-34");
+                    dataPass[0] = "16427";
+                    dataPass[1] = "30-34";
                     break;
                 case 8:
                     highestFreq.setText("Highest Frequency: 16,775Hz");
                     estimatedAge.setText("Estimated Age Range: 25-29");
+                    dataPass[0] = "16775";
+                    dataPass[1] = "25-29";
                     break;
                 case 9:
                     highestFreq.setText("Highest Frequency: 17,605Hz");
                     estimatedAge.setText("Estimated Age Range: 20-24");
+                    dataPass[0] = "17605";
+                    dataPass[1] = "20-24";
                     break;
                 case 10:
                     highestFreq.setText("Highest Frequency: 18,435Hz");
                     estimatedAge.setText("Estimated Age Range: 15-19");
+                    dataPass[0] = "18435";
+                    dataPass[1] = "15-19";
                     break;
                 case 11:
                     highestFreq.setText("Highest Frequency: 19,265Hz");
                     estimatedAge.setText("Estimated Age Range: 10-14");
+                    dataPass[0] = "19265";
+                    dataPass[1] = "10-14";
                     break;
                 case 12:
                     highestFreq.setText("Highest Frequency: 20,095Hz");
                     estimatedAge.setText("Estimated Age Range: 6-10");
+                    dataPass[0] = "20095";
+                    dataPass[1] = "6-10";
                     break;
 
             }
         }
 
+
+        finish.getBackground().setColorFilter(ContextCompat.getColor(this, R.color.colorPrimaryDark), PorterDuff.Mode.MULTIPLY);
+
         finish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                UpdateFirebase(dataPass);
                 startActivity(new Intent(HearingTestActivity.this, HomeActivity.class));
             }
         });
 
     }
+
+    private void UpdateFirebase(final String[] dataPass){
+        try{
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        //Set to final array because it is being accessed in an inner class
+        final DatabaseReference[] database = {FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("hearing-test")};
+        database[0].addValueEventListener(new ValueEventListener() {
+            boolean ran = false;
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getKey().equals("hearing-test") && !ran) {
+                    // Just to be sure it doesn't keep iterating over the same node
+                    ran=true;
+                    database[0] = database[0].child("Test" + String.valueOf(dataSnapshot.getChildrenCount() + 1));
+                    database[0].child("HighestFreq").setValue(dataPass[0]);
+                    database[0].child("EstAge").setValue(dataPass[1]);
+                }
+            }
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    } catch (NullPointerException e){
+        e.printStackTrace();
+    }
+}
+
+
+
+
 
     @Override
     public void onBackPressed(){
