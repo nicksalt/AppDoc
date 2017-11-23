@@ -316,6 +316,8 @@ public class HearingTestActivity extends AppCompatActivity {
                     database[0] = database[0].child("Test" + String.valueOf(dataSnapshot.getChildrenCount() + 1));
                     database[0].child("HighestFreq").setValue(dataPass[0]);
                     database[0].child("EstAge").setValue(dataPass[1]);
+                    //Save time for sorting in Results:
+                    database[0].child("Time").setValue(System.currentTimeMillis());
                 }
             }
             public void onCancelled(DatabaseError databaseError) {
