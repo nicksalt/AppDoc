@@ -1,182 +1,236 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ca.nicksalt.appdoc.HearingTestActivity">
-
-
-    <LinearLayout
-        android:id="@+id/resultsPage"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin">
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_height="0dp"
         android:visibility="visible"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
-
+        android:id="@+id/hearing_test_top_icon"
+        android:layout_weight="1">
         <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="match_parent"
-            android:layout_height="113dp"
-            android:paddingVertical="10dp"
-            app:srcCompat="@drawable/hearing_bubble" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingVertical="20dp"
-            android:text="Hearing Test Completed"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textColor="@color/colorPrimary"
-            android:textSize="22sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/highfreq"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="monospace"
-            android:paddingHorizontal="10dp"
-            android:text="Highest Frequency: 7,645Hz"
-            android:textAlignment="textStart"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/estAge"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="monospace"
-            android:paddingHorizontal="10dp"
-            android:text="Estimated Age Range: 80+"
-            android:textAlignment="textStart"
-            android:textSize="20sp" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="52dp" />
-
-        <Button
-            android:id="@+id/finishButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Finish"
-            android:textColor="@color/colorAccent" />
-
-    </LinearLayout>
+            android:layout_centerInParent="true"
+            android:src="@drawable/hearing_bubble"
+            tools:ignore="ContentDescription" />
+    </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/test"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7"
         android:orientation="vertical"
-        android:visibility="invisible">
-
-        <TextView
-            android:id="@+id/textView5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="50dp"
-            android:text="Can you hear this?"
-            android:textAlignment="center"
-            android:textSize="40sp" />
-
-        <TextView
-            android:id="@+id/frequencyText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="12000Hz"
-            android:textAlignment="center" />
-
-        <ProgressBar
-            android:id="@+id/frequency"
-            style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:progressTint="@android:color/holo_blue_bright" />
-
-        <Button
-            android:id="@+id/playButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Play"
-            android:textAlignment="center" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="115dp" />
-
+        android:id="@+id/hearing_test_instructions">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/yesButton"
-                android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:layout_weight="6">
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Yes!" />
-
-            <Button
-                android:id="@+id/noButton"
+                android:text="HEARING INSTRUCTIONS TITLE"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:textSize="18sp"/>
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="No." />
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="HEARING INSTRUCTIONS TO BE ADDED"
+                    android:textSize="18sp"/>
+            </ScrollView>
         </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="@dimen/activity_vertical_margin">
 
+            <Button
+                android:id="@+id/beginTest"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent"
+                android:background="@color/colorPrimaryDark"
+                android:textSize="16sp" />
+        </RelativeLayout>
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/splash"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4.5"
+        android:visibility="gone"
         android:orientation="vertical"
-        android:visibility="invisible"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="80dp"
-        tools:layout_editor_absoluteY="0dp">
-
-        <ImageView
-            android:id="@+id/hearingIcon"
+        android:id="@+id/hearing_test_exam_page">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="113dp"
-            android:paddingVertical="10dp"
-            app:srcCompat="@drawable/hearing_bubble" />
-
-        <TextView
-            android:id="@+id/textView3"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_weight="2.5"
+            android:gravity="center">
+            <TextView
+                android:id="@+id/frequencyText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="12000Hz"
+                android:textAlignment="center" />
+            <ProgressBar
+                android:id="@+id/frequency"
+                style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:progressTint="@android:color/holo_blue_bright" />
+            <Button
+                android:id="@+id/playButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:text="Play"
+                android:textAlignment="center" />
+        </LinearLayout>
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="30dp"
-            android:text="Hearing Test"
-            android:textAlignment="center"
-            android:textSize="50sp" />
+            android:layout_height="0dp"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:id="@+id/hearing_test_button_selection"
+            android:layout_weight="2">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Make sure your volume is set to 100% and you are in a quiet place. Be mindful of others, the tone generated can be distracting."
-            android:textAlignment="center" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                android:text="Can you hear this?"
+                android:layout_alignParentTop="true"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:layout_centerInParent="true"
+                android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textView4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="70dp"
-            android:text="Press Continue to begin."
-            android:textAlignment="center" />
+                <Button
+                    android:id="@+id/yesButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Yes!" />
 
-        <Button
-            android:id="@+id/beginTest"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Continue" />
+                <Button
+                    android:id="@+id/noButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="No." />
+
+            </LinearLayout>
+        </RelativeLayout>
+
 
     </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9"
+        android:orientation="vertical"
+        android:id="@+id/hearing_test_finish"
+        android:visibility="gone">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:layout_weight="5">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:text="Hearing Test Completed"
+                android:textSize="22sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:id="@+id/highfreq"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:textSize="18sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/estAge"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:textSize="18sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="If you wish to obtain a more intensive accurate test, find an Audiologist near you."
+                android:layout_marginTop="@dimen/activity_vertical_margin"/>
 
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_centerInParent="true">
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_hearing_white"
+                    android:textColor="@color/colorAccent"
+                    android:id="@+id/hearing_test_audiologist_button"
+                    android:textAllCaps="false"
+                    android:text="Find an Audiologist"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:text="@string/forget_share"/>
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_share_white"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorAccent"
+                    android:id="@+id/hearing_test_share_button"
+                    android:text="@string/share"/>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

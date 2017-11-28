@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.CountDownTimer;
 import android.os.Looper;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,10 +40,12 @@ public class HearingTestActivity extends AppCompatActivity {
     LinearLayout examPage;
     LinearLayout openingPage;
     LinearLayout resultPage;
+    LinearLayout finishPage;
+    RelativeLayout buttonSelections;
+    RelativeLayout completedButtons;
     Button play;
     Button yes;
     Button no;
-    Button finish;
     TextView highestFreq;
     TextView estimatedAge;
     TextView frequencyNum;
@@ -52,28 +56,26 @@ public class HearingTestActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_hearing_test);
 
-        examPage = (LinearLayout) findViewById(R.id.test);
-        openingPage = (LinearLayout) findViewById(R.id.splash);
-        bar = (ProgressBar) findViewById(R.id.frequency);
-        frequencyNum = (TextView) findViewById(R.id.frequencyText);
-        openingPage.setVisibility(View.VISIBLE);
-        examPage.setVisibility(View.INVISIBLE);
-        play = (Button) findViewById(R.id.playButton);
-        yes = (Button) findViewById(R.id.yesButton);
-        no = (Button) findViewById(R.id.noButton);
-        finish = (Button) findViewById(R.id.finishButton);
-        highestFreq = (TextView) findViewById(R.id.highfreq);
-        estimatedAge = (TextView) findViewById(R.id.estAge);
-        Button continueButton = (Button) findViewById(R.id.beginTest);
-        resultPage = (LinearLayout) findViewById(R.id.resultsPage);
-        resultPage.setVisibility(View.INVISIBLE);
+        examPage = findViewById(R.id.hearing_test_exam_page);
+        openingPage =  findViewById(R.id.hearing_test_instructions);
+        bar = findViewById(R.id.frequency);
+        frequencyNum = findViewById(R.id.frequencyText);
+        play = findViewById(R.id.playButton);
+        yes = findViewById(R.id.yesButton);
+        no = findViewById(R.id.noButton);
+        finishPage = findViewById(R.id.hearing_test_finish);
+        highestFreq = findViewById(R.id.highfreq);
+        estimatedAge = findViewById(R.id.estAge);
+        buttonSelections = findViewById(R.id.hearing_test_button_selection);
 
-        play.setBackgroundColor(Color.GREEN);
+        play.getBackground().setColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY);
 
+
+        Button continueButton = findViewById(R.id.beginTest);
         continueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openingPage.setVisibility(View.INVISIBLE);
+                openingPage.setVisibility(View.GONE);
                 examPage.setVisibility(View.VISIBLE);
                 runTest();
             }
@@ -85,27 +87,31 @@ public class HearingTestActivity extends AppCompatActivity {
     int soundFile;
 
     private void runTest (){
+        play.getBackground().clearColorFilter();
+        buttonSelections.setVisibility(View.INVISIBLE);
         isPlaying = false;
         soundFile = R.raw.sound_80; //Sound file that will be played (change value to change sound)
         frequencyNum.setText("7,645Hz"); //Set initial frequency text
         mp = MediaPlayer.create(HearingTestActivity.this,soundFile); //Create initial sound file.
+        final CountDownTimer[] playTimer = new CountDownTimer[1];
         play.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                buttonSelections.setVisibility(View.VISIBLE);
+                play.getBackground().clearColorFilter();
                 if(isPlaying){
                     mp.stop();
                     isPlaying = false;
                     mp.reset();
                     mp = MediaPlayer.create(HearingTestActivity.this,soundFile);
                     play.setText("Play");
-                    play.setBackgroundColor(Color.GREEN);
+                    play.getBackground().setColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY);
                 }else {
                     mp.start();
                     isPlaying = true;
                     play.setText("Stop");
-                    play.setBackgroundColor(Color.RED);
-                    new CountDownTimer(5000, 1000) {
+                    play.getBackground().setColorFilter(Color.RED, PorterDuff.Mode.MULTIPLY);
+                    playTimer[0] = new CountDownTimer(5000, 1000) {
                         public void onTick(long millisUntilFinished) {}
                         public void onFinish() {
                             if(isPlaying) {
@@ -127,8 +133,9 @@ public class HearingTestActivity extends AppCompatActivity {
             public void onClick(View view) {
                 testsRun++;
                 mp.stop();
-
+                mp.reset();
                 isPlaying = false;
+                playTimer[0].cancel();
 
                 switch (testsRun){
                     case 1:
@@ -186,8 +193,10 @@ public class HearingTestActivity extends AppCompatActivity {
                 }
                 mp.reset();
                 mp = MediaPlayer.create(HearingTestActivity.this,soundFile);
+                findViewById(R.id.hearing_test_button_selection).setVisibility(View.INVISIBLE);
                 play.setText("Play");
-                play.setBackgroundColor(Color.GREEN);
+                play.getBackground().clearColorFilter();
+                play.getBackground().setColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY);
                 testsRun++;
             }
         });
@@ -195,6 +204,10 @@ public class HearingTestActivity extends AppCompatActivity {
         no.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (isPlaying){
+                    mp.stop();
+                    isPlaying = false;
+                }
                 endGame(false);
             }
         });
@@ -203,8 +216,8 @@ public class HearingTestActivity extends AppCompatActivity {
 
     private void endGame(boolean finished){
 
-        examPage.setVisibility(View.INVISIBLE);
-        resultPage.setVisibility(View.VISIBLE);
+        examPage.setVisibility(View.GONE);
+        finishPage.setVisibility(View.VISIBLE);
 
         final String[] dataPass = new String[2];
 
@@ -289,43 +302,60 @@ public class HearingTestActivity extends AppCompatActivity {
             }
         }
 
+        try{
+            String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            //Set to final array because it is being accessed in an inner class
+            final DatabaseReference[] database = {FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("hearing-test")};
+            database[0].addValueEventListener(new ValueEventListener() {
+                boolean ran = false;
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getKey().equals("hearing-test") && !ran) {
+                        // Just to be sure it doesn't keep iterating over the same node
+                        ran=true;
+                        database[0] = database[0].child("Test" + String.valueOf(dataSnapshot.getChildrenCount() + 1));
+                        database[0].child("HighestFreq").setValue(dataPass[0]);
+                        database[0].child("EstAge").setValue(dataPass[1]);
+                        //Save time for sorting in Results:
+                        database[0].child("Time").setValue(System.currentTimeMillis());
+                    }
+                }
+                public void onCancelled(DatabaseError databaseError) {
+                }
+            });
+         } catch (NullPointerException e){
+            e.printStackTrace();
+        }
 
-        finish.getBackground().setColorFilter(ContextCompat.getColor(this, R.color.colorPrimaryDark), PorterDuff.Mode.MULTIPLY);
+        Button audiologist = findViewById(R.id.hearing_test_audiologist_button);
+        Button share = findViewById(R.id.hearing_test_share_button);
 
-        finish.setOnClickListener(new View.OnClickListener() {
+        audiologist.getBackground().setColorFilter(ContextCompat.getColor(
+                this, R.color.colorPrimaryDark), PorterDuff.Mode.MULTIPLY);
+        share.getBackground().setColorFilter(ContextCompat.getColor(
+                this, R.color.colorPrimaryDark), PorterDuff.Mode.MULTIPLY);
+
+        audiologist.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                UpdateFirebase(dataPass);
-                startActivity(new Intent(HearingTestActivity.this, HomeActivity.class));
+            public void onClick(View v) {
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("https://www.google.com/maps/search/?api=1&query=audiologist+near+me"));
+                startActivity(mapIntent);
             }
         });
-
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "Check out AppDoc, the new greatest app available on Android! ");
+                shareIntent.setType("text/plain");
+                startActivity(Intent.createChooser(shareIntent, "Share with:"));
+            }
+        });
     }
 
     private void UpdateFirebase(final String[] dataPass){
-        try{
-        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        //Set to final array because it is being accessed in an inner class
-        final DatabaseReference[] database = {FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("hearing-test")};
-        database[0].addValueEventListener(new ValueEventListener() {
-            boolean ran = false;
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.getKey().equals("hearing-test") && !ran) {
-                    // Just to be sure it doesn't keep iterating over the same node
-                    ran=true;
-                    database[0] = database[0].child("Test" + String.valueOf(dataSnapshot.getChildrenCount() + 1));
-                    database[0].child("HighestFreq").setValue(dataPass[0]);
-                    database[0].child("EstAge").setValue(dataPass[1]);
-                    //Save time for sorting in Results:
-                    database[0].child("Time").setValue(System.currentTimeMillis());
-                }
-            }
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
-    } catch (NullPointerException e){
-        e.printStackTrace();
-    }
+
 }
 
 
