@@ -364,8 +364,8 @@ public class HearingTestActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        if (findViewById(R.id.hearing_test_top_icon).getVisibility() ==
-                View.VISIBLE){
+        if (openingPage.getVisibility() == View.VISIBLE ||
+                finishPage.getVisibility() == View.VISIBLE){
             finish();
             super.onBackPressed();
         } else {
@@ -383,6 +383,14 @@ public class HearingTestActivity extends AppCompatActivity {
                     });
             builder.show();
         }
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        // Coming back to app from either selecting audiologist or share button.
+        if (finishPage.getVisibility() == View.VISIBLE)
+            super.onBackPressed();
     }
 
 
