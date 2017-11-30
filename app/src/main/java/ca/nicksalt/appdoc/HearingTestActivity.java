@@ -364,7 +364,7 @@ public class HearingTestActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
-        if (findViewById(R.id.splash).getVisibility() ==
+        if (findViewById(R.id.hearing_test_top_icon).getVisibility() ==
                 View.VISIBLE){
             finish();
             super.onBackPressed();
