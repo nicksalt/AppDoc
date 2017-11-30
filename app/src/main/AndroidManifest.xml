@@ -42,10 +42,6 @@
             android:theme="@style/AppTheme.Test" />
         <activity android:name=".HearingTestActivity" />
         <activity
-<<<<<<< HEAD
-            android:name=".PreferenceActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-=======
             android:name=".PreferencesActivity"
             android:label="@string/title_activity_preferences"
             android:parentActivityName=".HomeActivity">
@@ -54,7 +50,6 @@
                 android:value="ca.nicksalt.appdoc.HomeActivity" />
         </activity>
         <activity android:name=".SettingsActivity"></activity>
->>>>>>> 18f3588cb8ece7a1c8a2d6d2c2d70587ba887b32
     </application>
 
 </manifest>

@@ -3,16 +3,13 @@
     <SwitchPreference
         android:defaultValue="true"
         android:key="example_switch"
-        android:title="Notifications" />
+        android:summary="@string/pref_description_social_recommendations"
+        android:title="@string/pref_title_social_recommendations" />
 
-<<<<<<< HEAD
-
-=======
     <SwitchPreference
         android:defaultValue="true"
         android:key="example_switch"
         android:summary="Downloads the results of your tests in PDF format."
         android:title="Auto Download Results" />
->>>>>>> 18f3588cb8ece7a1c8a2d6d2c2d70587ba887b32
 
 </PreferenceScreen>
