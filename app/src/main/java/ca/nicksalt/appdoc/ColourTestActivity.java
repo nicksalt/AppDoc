@@ -1,12 +1,14 @@
 package ca.nicksalt.appdoc;
 
 import android.annotation.SuppressLint;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.CountDownTimer;
+import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -66,6 +68,10 @@ public class ColourTestActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_colour_test);
+
+        ContentResolver cResolver = this.getApplicationContext().getContentResolver();
+        Settings.System.putInt(cResolver, Settings.System.SCREEN_BRIGHTNESS, 255);
+
         nextButton = findViewById(R.id.colour_test_next);
         //Make Button Blue
         nextButton.getBackground().setColorFilter(ContextCompat.getColor(
