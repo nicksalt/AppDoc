@@ -40,7 +40,11 @@ public abstract class BaseNavDrawerActivity extends AppCompatActivity implements
         int id = item.getItemId();
         switch (id) {
             case R.id.toolbar_preferences:
+<<<<<<< HEAD
                 startActivity(new Intent(BaseNavDrawerActivity.this, PreferenceActivity.class));
+=======
+                startActivity(new Intent(BaseNavDrawerActivity.this, SettingsActivity.class));
+>>>>>>> 18f3588cb8ece7a1c8a2d6d2c2d70587ba887b32
                 break;
         }
 
