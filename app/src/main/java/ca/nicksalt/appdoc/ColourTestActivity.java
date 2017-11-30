@@ -14,6 +14,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -69,8 +70,9 @@ public class ColourTestActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_colour_test);
 
-        ContentResolver cResolver = this.getApplicationContext().getContentResolver();
-        Settings.System.putInt(cResolver, Settings.System.SCREEN_BRIGHTNESS, 255);
+        WindowManager.LayoutParams lp = getWindow().getAttributes();
+        lp.screenBrightness = 100/(float)255;
+        getWindow().setAttributes(lp);
 
         nextButton = findViewById(R.id.colour_test_next);
         //Make Button Blue
