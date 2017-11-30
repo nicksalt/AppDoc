@@ -1,9 +1,11 @@
 package ca.nicksalt.appdoc;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -55,6 +57,9 @@ public class HearingTestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_hearing_test);
+
+        AudioManager audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+        audioManager.setStreamVolume(audioManager.STREAM_MUSIC, audioManager.getStreamMaxVolume(audioManager.STREAM_MUSIC), audioManager.FLAG_SHOW_UI);
 
         examPage = findViewById(R.id.hearing_test_exam_page);
         openingPage =  findViewById(R.id.hearing_test_instructions);

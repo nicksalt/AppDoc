@@ -47,7 +47,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="HEARING INSTRUCTIONS TO BE ADDED"
+                    android:text="NOTICE: The test has set your volume to the recommended 100%. If you wish to alter your volume you may do so. The minimum recommended volume is 75%.\n\n HEARING INSTRUCTIONS TO BE ADDED"
                     android:textSize="18sp"/>
             </ScrollView>
         </LinearLayout>

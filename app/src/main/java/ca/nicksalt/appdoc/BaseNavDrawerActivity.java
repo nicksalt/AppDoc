@@ -40,7 +40,7 @@ public abstract class BaseNavDrawerActivity extends AppCompatActivity implements
         int id = item.getItemId();
         switch (id) {
             case R.id.toolbar_preferences:
-                Toast.makeText(this, "Preferences Clicked", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(BaseNavDrawerActivity.this, PreferenceActivity.class));
                 break;
         }
 
