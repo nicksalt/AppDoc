@@ -40,7 +40,15 @@
         <activity
             android:name=".ColourTestActivity"
             android:theme="@style/AppTheme.Test" />
-        <activity android:name=".HearingTestActivity"></activity>
+        <activity android:name=".HearingTestActivity" />
+        <activity
+            android:name=".PreferencesActivity"
+            android:label="@string/title_activity_preferences"
+            android:parentActivityName=".HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ca.nicksalt.appdoc.HomeActivity" />
+        </activity>
     </application>
 
 </manifest>
