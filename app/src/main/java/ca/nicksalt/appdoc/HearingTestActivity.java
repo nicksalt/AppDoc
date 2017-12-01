@@ -15,6 +15,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -30,6 +31,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
+
+import java.util.Currency;
 
 public class HearingTestActivity extends AppCompatActivity {
 
@@ -51,14 +54,16 @@ public class HearingTestActivity extends AppCompatActivity {
     TextView highestFreq;
     TextView estimatedAge;
     TextView frequencyNum;
-
+    AudioManager audioManager;
+    int currentVolume;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hearing_test);
 
-        AudioManager audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+        audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+        currentVolume = audioManager.getStreamVolume(3);
         audioManager.setStreamVolume(audioManager.STREAM_MUSIC, audioManager.getStreamMaxVolume(audioManager.STREAM_MUSIC), audioManager.FLAG_SHOW_UI);
 
         examPage = findViewById(R.id.hearing_test_exam_page);
@@ -83,6 +88,7 @@ public class HearingTestActivity extends AppCompatActivity {
                 openingPage.setVisibility(View.GONE);
                 examPage.setVisibility(View.VISIBLE);
                 runTest();
+
             }
         });
 
@@ -213,6 +219,8 @@ public class HearingTestActivity extends AppCompatActivity {
                     mp.stop();
                     isPlaying = false;
                 }
+                audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+                audioManager.setStreamVolume(3, currentVolume, audioManager.FLAG_SHOW_UI);
                 endGame(false);
             }
         });
@@ -369,6 +377,8 @@ public class HearingTestActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed(){
+        audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+        audioManager.setStreamVolume(3, currentVolume, audioManager.FLAG_SHOW_UI);
         if (openingPage.getVisibility() == View.VISIBLE ||
                 finishPage.getVisibility() == View.VISIBLE){
             finish();
