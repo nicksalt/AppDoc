@@ -297,21 +297,36 @@ public class ColourTestActivity extends AppCompatActivity implements View.OnClic
         try {
             String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
             //Set to final array because it is being accessed in an inner class
-            final DatabaseReference[] database = {FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("color-test")};
-            database[0].addValueEventListener(new ValueEventListener() {
+            final DatabaseReference[] reference = {FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("color-test")};
+            reference[0].addValueEventListener(new ValueEventListener() {
                 boolean ran = false;
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.getKey().equals("color-test") && !ran) {
                         // Just to be sure it doesn't keep iterating over the same node
                         ran=true;
-                        database[0] = database[0].child("Test" + String.valueOf(dataSnapshot.getChildrenCount() + 1));
-                        database[0].child("RedGreen").setValue(correctRedGreen);
-                        database[0].child("TotalGreen").setValue(correctTotal);
-                        database[0].child("Time").setValue(System.currentTimeMillis());
+                        reference[0] = reference[0].child("Test" + String.valueOf(dataSnapshot.getChildrenCount() + 1));
+                        reference[0].child("RedGreen").setValue(correctRedGreen);
+                        reference[0].child("TotalGreen").setValue(correctTotal);
+                        reference[0].child("Time").setValue(System.currentTimeMillis());
                     }
                 }
                 public void onCancelled(DatabaseError databaseError) {
                 }
+            });
+
+            // Increase Number of test
+            final DatabaseReference reference2= FirebaseDatabase.getInstance().getReference().child("users").child
+                    (userId).child("number-of-test");
+            reference2.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getValue() !=null)
+                        reference2.setValue((long)dataSnapshot.getValue() + 1);
+                    else
+                        reference2.setValue((long)1);
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {}
             });
         } catch (NullPointerException e){
             e.printStackTrace();

@@ -1,47 +1,53 @@
 package ca.nicksalt.appdoc;
 
+import android.app.ProgressDialog;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class ResultsActivity extends BaseNavDrawerActivity {
 
-    private TextView mTextMessage;
+    private TextView title, tableTitle2, tableTitle3;
+    private DatabaseReference reference;
+    TableLayout colourTable;
+    TableLayout eyeTable;
+    TableLayout hearingTable;
 
+    private ProgressDialog progressDialog;
+    NavigationView navigationView;
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.color:
-                    mTextMessage.setText("Color Test");
-                    return true;
-                case R.id.eye:
-                    mTextMessage.setText("Eye Test");
-                    return true;
-                case R.id.hearing:
-                    mTextMessage.setText("Hearing Test");
-                    return true;
-            }
-            return false;
-        }
-
-    };
-
+    float dp_scale;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Database stuff takes longer to load so show dialog
+        showProgressDialog();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
+
+        // Navbar stuff
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -49,18 +55,213 @@ public class ResultsActivity extends BaseNavDrawerActivity {
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
-        NavigationView navigationView = findViewById(R.id.nav_view);
+         navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         //Set Home to current selected in nav bar
         navigationView.getMenu().getItem(1).setChecked(true);
+        // Initiate Views
         View header = navigationView.getHeaderView(0);
+        final TextView headerTest = header.findViewById(R.id.nav_completed_test);
         TextView headerEmail = header.findViewById(R.id.nav_email);
+        colourTable = findViewById(R.id.result_colour);
+        eyeTable = findViewById(R.id.result_eye);
+        hearingTable = findViewById(R.id.result_hearing);
+        title = findViewById(R.id.result_title);
+        tableTitle2 = findViewById(R.id.result_text_2);
+        tableTitle3 = findViewById(R.id.result_text_3);
+        //Set Bottom Nav Bar
+        BottomNavigationView bottomNavigationView = findViewById(R.id.result_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView
+                .OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    // Set visibilities based on test and get data from database if it isn't
+                    // already loaded
+                    case R.id.color:
+                        colourTable.setVisibility(View.VISIBLE);
+                        hearingTable.setVisibility(View.GONE);
+                        eyeTable.setVisibility(View.GONE);
+                        tableTitle2.setText("Red Green Correct");
+                        tableTitle3.setText("Total Correct");
+                        title.setText("Colour Test Past Results");
+                        if(colourTable.getChildCount() == 0)
+                            colourTest();
+                        return true;
+                    case R.id.eye:
+                        title.setText("Eye Test Past Results");
+                        colourTable.setVisibility(View.GONE);
+                        hearingTable.setVisibility(View.GONE);
+                        eyeTable.setVisibility(View.VISIBLE);
+                        tableTitle2.setText("TBD");
+                        tableTitle3.setText("TBD");
+                        return true;
+                    case R.id.hearing:
+                        colourTable.setVisibility(View.GONE);
+                        hearingTable.setVisibility(View.VISIBLE);
+                        eyeTable.setVisibility(View.GONE);
+                        tableTitle2.setText("Estimated Age");
+                        tableTitle3.setText("Highest Frequency");
+                        title.setText("Hearing Test Past Results");
+                        if(hearingTable.getChildCount() == 0) {
+                            showProgressDialog();
+                            hearingTest();
+                            hideProgressDialog();
+                        }
+                        return true;
+                }
+                return false;
+            }
+        });
+        // Navbar info
         try {
             headerEmail.setText(auth.getCurrentUser().getEmail());
+            reference = FirebaseDatabase.getInstance().getReference().child("users").child
+                    (auth.getCurrentUser().getUid()).child("number-of-test");
+            reference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getValue() == null || (Long) dataSnapshot.getValue() == 0){
+                        headerTest.setText("Complete your first test!");
+                    } else if((Long) dataSnapshot.getValue() == 1) {
+                        headerTest.setText((Long) dataSnapshot.getValue() + " Test Completed");
+                    } else{
+                        headerTest.setText((Long) dataSnapshot.getValue() + " Tests Completed");
+                    }
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {}
+            });
+
         } catch (NullPointerException e) {
             e.printStackTrace();
             headerEmail.setText("");
         }
+
+        // Scaled to convert pixels to dp
+        dp_scale =  getResources().getDisplayMetrics().density;
+        //Call colour test to start
+        colourTest();
+    }
+
+    private void colourTest() {
+        try {
+            // Get info from past colour tests
+            reference = FirebaseDatabase.getInstance().getReference().child("users").child(auth.getCurrentUser()
+                    .getUid()).child("color-test");
+            // Read from the database
+            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Iterable<DataSnapshot> source = dataSnapshot.getChildren();
+                    for(DataSnapshot dS: source){
+                        createRow(dS.getChildren(), colourTable, "RedGreen", "TotalGreen");
+                    }
+                    hideProgressDialog();
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {}
+            });
+
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+    }
+    private void hearingTest() {
+        // Pretty much same as colourTest() with exception of string, will optimize later with universal strings
+        try {
+            reference = FirebaseDatabase.getInstance().getReference().child("users").child(auth.getCurrentUser()
+                    .getUid()).child("hearing-test");
+            // Read from the database
+            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Iterable<DataSnapshot> source = dataSnapshot.getChildren();
+                    for(DataSnapshot dS: source){
+                        createRow(dS.getChildren(), hearingTable, "EstAge", "HighestFreq");
+                    }
+                    hideProgressDialog();
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void createRow(Iterable<DataSnapshot> source, TableLayout table, String child1, String child2){
+        long time = 0;
+        String column2 = "";
+        String column3 = "";
+        // Go through each value in db
+        for(DataSnapshot dS: source){
+            if (dS.getKey().equals(child1))
+                column2 = dS.getValue().toString();
+            else if (dS.getKey().equals(child2))
+                column3 = dS.getValue().toString();
+            else
+                time = (long)dS.getValue();
+        }
+        //time is always stored in the database, this formats it.
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(time);
+        String[] array = new String[3];
+        array[0] = formatter.format(calendar.getTime());
+        //Set strings accordingly
+        if(table == colourTable) {
+            column3 = (Integer.parseInt(column2) + Integer.parseInt(column3)) + "/10";
+            column2 = column2 + "/6";
+        } else if (table == hearingTable) {
+            column3 = column3.charAt(0) + "," + column3.substring(1) + "Hz";
+        }
+        array[1] = column2;
+        array[2] = column3;
+        //Add one row per test that was three text views, lots of layout constraints.
+        TableRow tableRow = new TableRow(this);
+        tableRow.setBackground(new ColorDrawable(getResources().getColor(R.color.colorPrimaryDark)));
+        for (int i=0; i<3; i++){
+            TextView textView = new TextView(this);
+            LinearLayout.LayoutParams llp = new TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1);
+            textView.setLayoutParams(llp);
+            textView.setBackground(new ColorDrawable(getResources().getColor(R.color.defaultBackground)));
+            textView.setPadding((int)(8*dp_scale+0.5f), (int)(4*dp_scale+0.5f), (int)(8*dp_scale+0.5f),
+                    (int)(4*dp_scale+0.5f));
+            textView.setGravity(Gravity.CENTER);
+            if (i<2)
+                llp.setMargins(0,0,(int)(3*dp_scale*0.5f),0);
+            textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+            textView.setText(array[i]);
+            tableRow.addView(textView);
+        }
+        table.addView(tableRow, 0);
+    }
+
+    private void showProgressDialog() {
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setMessage(getString(R.string.loading));
+            progressDialog.setIndeterminate(true);
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+
+        }
+        progressDialog.show();
+    }
+
+    private void hideProgressDialog() {
+        if (progressDialog != null && progressDialog.isShowing()) {
+            progressDialog.dismiss();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        //Set Home to current selected in nav bar
+        navigationView.getMenu().getItem(1).setChecked(true);
     }
 }
