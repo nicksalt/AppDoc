@@ -56,6 +56,13 @@
     <string name="find_an_optometrist">Find an Optometrist</string>
     <string name="forget_share">Don\'t Forget to Share</string>
     <string name="share">Share</string>
+    <string name="hearing_test_instructions_title">Before you begin the hearing test, here are some important instructions:</string>
+    <string name="hearing_Test_instructions">1. Click \"Play\" to play the audio file.\n2. If you hear the audio, select
+        \"Yes\" which will appear once the audio is played. If you do not, select \"No\".\n3. Feel free to select
+        \"Stop\" at any time while the audio is being played.\n5. Once you have completed the test, we will provide
+        you with your score and some next steps.\n6. If you are satisfied with the app please share
+        it!\n\n<b>NOTICE: The test has set your volume to the recommended 100%. If you wish to alter your volume you
+            may do so. The minimum recommended volume is 75%.</b></string>
     <string name="title_activity_preferences">Preferences</string>
 
     <!-- Strings related to Settings -->
