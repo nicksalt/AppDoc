@@ -69,6 +69,7 @@
                     android:background="@android:color/transparent"
                     android:scaleType="centerInside"
                     android:src="@drawable/eye_bubble"
+                    android:id="@+id/eye_button"
                     tools:ignore="ContentDescription" />
 
             </RelativeLayout>

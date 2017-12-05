@@ -61,7 +61,8 @@
         <activity
             android:name=".HelpActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".EyeTestActivity"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="ca.nicksalt.appdoc.EyeTestActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/eye_test_instructions"
+        android:visibility="visible"
+        android:padding="16dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/eye_bubble"
+                tools:ignore="ContentDescription" />
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:layout_weight="6">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hearing_test_instructions_title"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:textSize="18sp"/>
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/hearing_Test_instructions"
+                    android:textSize="18sp"/>
+            </ScrollView>
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="@dimen/activity_vertical_margin">
+
+            <Button
+                android:id="@+id/eye_test_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent"
+                android:background="@color/colorPrimaryDark"
+                android:textSize="16sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:orientation="vertical"
+        android:id="@+id/eye_test_test">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="@color/colorAccent"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentBottom="true"
+                android:text=" &#x2191; "
+                android:textSize="30dp"
+                android:textStyle="bold"
+                android:id="@+id/eye_test_up"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <RelativeLayout
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1">
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="@color/colorAccent"
+                android:layout_centerInParent="true"
+                android:text=" &#x2190; "
+                android:textSize="30dp"
+                android:textStyle="bold"
+                android:id="@+id/eye_test_left" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:fontFamily="@font/petitinho"
+                android:layout_gravity="center"
+                android:layout_centerInParent="true"
+                android:id="@+id/eye_test_E"
+                android:textAllCaps="true" />
+
+            <RelativeLayout
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="1">
+                <Button
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorPrimaryDark"
+                    android:textColor="@color/colorAccent"
+                    android:layout_centerInParent="true"
+                    android:text=" &#x2192; "
+                    android:textSize="30dp"
+                    android:textStyle="bold"
+                    android:id="@+id/eye_test_right" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:textColor="@color/colorAccent"
+                android:layout_centerHorizontal="true"
+                android:layout_alignParentTop="true"
+                android:text=" &#x2193; "
+                android:textSize="30dp"
+                android:textStyle="bold"
+                android:id="@+id/eye_test_down" />
+        </RelativeLayout>
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/eye_test_results"
+        android:visibility="gone"
+        android:padding="@dimen/activity_vertical_margin">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:src="@drawable/eye_bubble"
+                tools:ignore="ContentDescription" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:layout_weight="3">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:text="@string/colour_test_completed"
+                android:textSize="22sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:id="@+id/eye_test_score"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:textSize="18sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/eye_test_diagnostic"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_centerInParent="true">
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_eye_test_white"
+                    android:textColor="@color/colorAccent"
+                    android:id="@+id/eye_test_optometrist_button"
+                    android:textAllCaps="false"
+                    android:text="@string/find_an_optometrist"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:text="@string/forget_share"/>
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_share_white"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorAccent"
+                    android:id="@+id/eye_test_share_button"
+                    android:text="@string/share"/>
+
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+
+
+
+
+
+
+</LinearLayout>
