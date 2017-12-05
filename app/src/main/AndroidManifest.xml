@@ -18,8 +18,8 @@
         android:theme="@style/AppTheme">
         <receiver
             android:name=".Receiver"
-            android:enabled="true" >
-        </receiver>
+            android:enabled="true" />
+
         <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_nav"
@@ -66,7 +66,11 @@
             android:name=".HelpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-        <activity android:name=".EyeTestActivity"></activity>
+        <activity android:name=".EyeTestActivity" />
+        <activity
+            android:name=".AndroidHelpActivity"
+            android:label="@string/title_activity_android_help"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

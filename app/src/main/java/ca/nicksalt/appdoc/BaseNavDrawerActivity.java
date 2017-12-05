@@ -60,7 +60,7 @@ public abstract class BaseNavDrawerActivity extends AppCompatActivity implements
             auth.signOut();
             startActivity(new Intent(BaseNavDrawerActivity.this, LoginActivity.class));
         } else if (id == R.id.nav_help){
-            startActivity(new Intent(BaseNavDrawerActivity.this, HelpActivity
+            startActivity(new Intent(BaseNavDrawerActivity.this, AndroidHelpActivity
                     .class));
         }
 
