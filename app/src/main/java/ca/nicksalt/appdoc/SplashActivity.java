@@ -1,5 +1,7 @@
 package ca.nicksalt.appdoc;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +14,9 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FirebaseAuth auth = FirebaseAuth.getInstance();
+        // Cancel notifications
+        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.cancelAll();
         // Start home activity
         if(auth.getCurrentUser() != null) {
             Log.d("Test", auth.getCurrentUser().getEmail());

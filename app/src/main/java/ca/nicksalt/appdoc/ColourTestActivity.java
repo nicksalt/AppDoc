@@ -1,12 +1,15 @@
 package ca.nicksalt.appdoc;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.PorterDuff;
 import android.net.Uri;
+import android.os.Build;
 import android.os.CountDownTimer;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
@@ -30,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class ColourTestActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -293,8 +297,20 @@ public class ColourTestActivity extends AppCompatActivity implements View.OnClic
             ((TextView)findViewById(R.id.colour_test_diagnostic)).setText(R.string.colour_test_diagnostic_red_green);
         else
             ((TextView)findViewById(R.id.colour_test_diagnostic)).setText(R.string.colour_test_diagnostic_perfect);
+
+        // Send notification
+        Intent intent = new Intent(ColourTestActivity.this, Receiver.class);
+        intent.putExtra("test", "colour");
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(ColourTestActivity.this, (int)System.currentTimeMillis(), intent, PendingIntent.FLAG_ONE_SHOT);
+        AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            am.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + TimeUnit.DAYS.toMillis(7), pendingIntent);
+        } else {
+            am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + TimeUnit.DAYS.toMillis(7), pendingIntent);
+        }
+
         // Upload results to Database.. if there are issues it may return nullPointerException
-        try {
+            try {
             String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
             //Set to final array because it is being accessed in an inner class
             final DatabaseReference[] reference = {FirebaseDatabase.getInstance().getReference().child("users").child(userId).child("color-test")};

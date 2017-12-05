@@ -1,6 +1,8 @@
 package ca.nicksalt.appdoc;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,6 +12,7 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.Looper;
 import android.support.v4.content.ContextCompat;
@@ -34,6 +37,7 @@ import com.google.firebase.database.ValueEventListener;
 import org.w3c.dom.Text;
 
 import java.util.Currency;
+import java.util.concurrent.TimeUnit;
 
 public class HearingTestActivity extends AppCompatActivity {
 
@@ -321,6 +325,17 @@ public class HearingTestActivity extends AppCompatActivity {
                 break;
 
             }
+
+        // Send notification
+        Intent intent = new Intent(HearingTestActivity.this, Receiver.class);
+        intent.putExtra("test", "hearing");
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(HearingTestActivity.this, (int)System.currentTimeMillis(), intent, PendingIntent.FLAG_ONE_SHOT);
+        AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            am.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + TimeUnit.DAYS.toMillis(7), pendingIntent);
+        } else {
+            am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + TimeUnit.DAYS.toMillis(7), pendingIntent);
+        }
         try{
 
             String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();

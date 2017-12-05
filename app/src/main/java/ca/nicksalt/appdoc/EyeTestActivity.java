@@ -1,10 +1,13 @@
 package ca.nicksalt.appdoc;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.net.Uri;
+import android.os.Build;
 import android.os.CountDownTimer;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -28,6 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.concurrent.TimeUnit;
 
 public class EyeTestActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -184,6 +188,16 @@ public class EyeTestActivity extends AppCompatActivity implements View.OnClickLi
         }
         resultScore.setText(scoreWord);
         results.setVisibility(View.VISIBLE);
+        Intent intent = new Intent(EyeTestActivity.this, Receiver.class);
+        intent.putExtra("test", "eye");
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(EyeTestActivity.this, (int)System.currentTimeMillis(), intent, PendingIntent.FLAG_ONE_SHOT);
+        AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            am.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + TimeUnit.DAYS.toMillis(7), pendingIntent);
+        } else {
+            am.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + TimeUnit.DAYS.toMillis(7), pendingIntent);
+
+        }
         try {
             String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
             //Set to final array because it is being accessed in an inner class
