@@ -93,8 +93,13 @@ public class ResultsActivity extends BaseNavDrawerActivity {
                         colourTable.setVisibility(View.GONE);
                         hearingTable.setVisibility(View.GONE);
                         eyeTable.setVisibility(View.VISIBLE);
-                        tableTitle2.setText("TBD");
-                        tableTitle3.setText("TBD");
+                        tableTitle2.setText("Score");
+                        tableTitle3.setText("Description");
+                        if(eyeTable.getChildCount() == 0) {
+                            showProgressDialog();
+                            eyeTest();
+                            hideProgressDialog();
+                        }
                         return true;
                     case R.id.hearing:
                         colourTable.setVisibility(View.GONE);
@@ -193,6 +198,32 @@ public class ResultsActivity extends BaseNavDrawerActivity {
         }
     }
 
+    private void eyeTest() {
+        // Pretty much same as colourTest() with exception of string, will optimize later with universal strings
+        try {
+            reference = FirebaseDatabase.getInstance().getReference().child("users").child(auth.getCurrentUser()
+                    .getUid()).child("eye-test");
+            // Read from the database
+            reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    Iterable<DataSnapshot> source = dataSnapshot.getChildren();
+                    for(DataSnapshot dS: source){
+                        createRow(dS.getChildren(), eyeTable, "Score", "Description");
+                    }
+                    hideProgressDialog();
+                }
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void createRow(Iterable<DataSnapshot> source, TableLayout table, String child1, String child2){
         long time = 0;
         String column2 = "";
@@ -218,6 +249,8 @@ public class ResultsActivity extends BaseNavDrawerActivity {
             column2 = column2 + "/6";
         } else if (table == hearingTable) {
             column3 = column3.charAt(0) + "," + column3.substring(1) + "Hz";
+        } else{
+            column2 = column2 + "/12";
         }
         array[1] = column2;
         array[2] = column3;
@@ -235,6 +268,7 @@ public class ResultsActivity extends BaseNavDrawerActivity {
             if (i<2)
                 llp.setMargins(0,0,(int)(3*dp_scale*0.5f),0);
             textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
+            textView.setText(array[i]);
             textView.setText(array[i]);
             tableRow.addView(textView);
         }

@@ -65,8 +65,26 @@
             may do so. The minimum recommended volume is 75%.</b></string>
     <string name="title_activity_preferences">Preferences</string>
 
-    <!-- Strings related to Settings -->
+    <string name="eye_test_instructions_title">Before you begin the eye test, here are some important instructions:</string>
+    <string name="eye_test_instructions">1. Start this test by covering your left eye. We will inform you when you should switch to your right eye.\n2. This test works by rotating the letter \"E\", your job is to determine which way it is pointing by selecting the correct arrow button.\n3. Once you tap an arrow button another letter will load.\n4. Once you are finished we will show you your results.\n5. If you are satisfied with the app please share
+        it!</string>
+    <string name="eye_test_up"> &#x2191; </string>
+    <string name="eye_test_down"> &#x2193; </string>
+    <string name="eye_test_left"> &#x2190; </string>
+    <string name="eye_test_right"> &#x2192; </string>
+    <string name="eye_test_completed">Eye Test Completed</string>
+    <string name="eye_test_alert_button">Alright, Let\'s Go</string>
+    <string name="eye_test_alert_start">To start, make sure your left eye is covered. Now hold your phone out as far as you can and choose the arrow button that matches what way the \"E\" is pointed.</string>
+    <string name="eye_test_alert_next">Nice work! Now cover your right eye.</string>
+    <string name="eye_test_result_excellent">Your eyes look excellent as far as we can tell. But, it never hurts to get an opinion from a trained professional. Click below to find an optometrist near you.</string>
+    <string name="eye_test_result_good">You did well on the test, but not perfect. We recommend that you visit an optometrist near you.</string>
+    <string name="eye_test_result_ok">Your eyes seem to be OK, but they could be much better with corrective lenses. Click below to find an optometrist near you.</string>
+    <string name="eye_test_result_not_good">Your results are not great. We think it would be best if you made an appointment with a trained professional as soon as possible. Click below to find an optometrist near you.</string>
+    <string name="eye_test_result_poor">Unfortunately you failed our test. We think it would be best if you made an appointment with a trained professional immediately. Click below to find an optometrist near you.</string>
 
+
+    <!-- Strings related to Settings -->
+    
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>
 
