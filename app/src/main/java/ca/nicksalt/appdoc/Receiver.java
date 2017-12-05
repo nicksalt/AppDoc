@@ -28,7 +28,7 @@ public class Receiver extends BroadcastReceiver {
         } else if (intent.getStringExtra("test").equals("colour")) {
             showNotification(context, "Colour", new Intent(context, ColourTestActivity.class), R.drawable.ic_palette);
         } else if (intent.getStringExtra("test").equals("hearing")) {
-            showNotification(context, "Hearing", new Intent(context, ColourTestActivity.class), R.drawable.ic_hearing);
+            showNotification(context, "Hearing", new Intent(context, HearingTestActivity.class), R.drawable.ic_hearing);
         }
     }
 
