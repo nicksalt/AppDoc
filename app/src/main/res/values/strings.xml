@@ -161,11 +161,16 @@
     <string name="help_navigation_title">Navigation Bar</string>
     <string name="help_navigation_text">Layout a walkway, with visible start and end point, and measure the walkway length. Have the person stand at the start point, facing along the walkway.</string>
     <string name="help_navbar_list">1. Selecting \'Home\' returns you to the Home Screen \n2. Selecting \'Results\' take you to the Results page \n3. Selecting \'Help\' brought you here! \n4. Selecting \'Sign Out\' signs you out of you Account, for more information see Account</string>
+    <string name="help_hearing">1. Select the Hearing Test button to begin a new test. \n2. Read pre-test instructions carefully and understand that your volume will be set to max when running the test. \n3. Once the countdown has completed, press the button to begin the test. \n4. Press \'Play\' to hear a sound (be weary of using in public spaces). Click yes or no if you heard it or not. \n5. Once the test is complete, press the back button to return to the menu. </string>
+    <string name="help_colour">1. Select the Colour Test button from the home screen to begin a new test. \n2. Read all pre-test instructions, ensure you understand test instructions. \n3. Look at the image shown and select the best option based on the question provided. \n4. Once the test is complete, press the back button to return to home screen.</string>
+    <string name="help_sight">1. Select the Eye Test button from the home screen to begin a new test. \n2. Read all pre-test instructions, ensure you understand test instructions. \n3. Extend your arm out fully and press begin. \n4. Observe rotation of the letter \'E\' and press arrow based on its rotation. \n5. Once the test is complete, press the back button to return to home screen.</string>
+    <string name="help_results">1. Open navigation menu and select \'Results\' option. \n2. To view different results, use menu at the bottom of the screen. \n3. To export as a PDF for future reference, press the \'Generate PDF\' button at the top of the screen to save a PDF copy to your device files.</string>
     <string name="help_hearing_title">Hearing Test</string>
     <string name="help_color_title">Color Test</string>
     <string name="help_eye_title">Eye Test</string>
     <string name="help_results_title">Results</string>
     <string name="help_developer_notes_title">Developer Comments</string>
     <string name="help_notes_text">AppDoc allows you to test your hearing, visual acuity, and colour vision. Our goal was to make it easier for people to check their eyes, color vision and hearing in one app.</string>
+    <string name="help_notes_text2">References:\nHearing Test Data: http://onlinetonegenerator.com/hearingtest-results.html\nColour Test Data:\nEyesight Test Data:</string>
 </resources>
 

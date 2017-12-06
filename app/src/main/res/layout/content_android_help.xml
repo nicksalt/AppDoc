@@ -20,15 +20,15 @@
                 android:id="@+id/home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="16dp"
                 android:paddingBottom="4dp"
                 android:paddingLeft="12dp"
+                android:paddingStart="12dp"
+                android:paddingTop="16dp"
                 android:text="@string/help_home_title"
                 android:textSize="20sp"
                 tools:ignore="MissingConstraints,RtlSymmetry"
                 tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="0dp"
-                android:paddingStart="12dp" />
+                tools:layout_editor_absoluteY="0dp" />
 
             <TextView
                 android:id="@+id/home_text"
@@ -37,14 +37,14 @@
                 android:layout_below="@id/home"
                 android:paddingBottom="0dp"
                 android:paddingEnd="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="8dp"
                 android:paddingStart="16dp"
                 android:paddingTop="4dp"
                 android:text="@string/help_home_text"
                 tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="47dp"
-                android:paddingRight="8dp"
-                android:paddingLeft="16dp" />
+                tools:layout_editor_absoluteY="47dp" />
 
             <TextView
                 android:id="@+id/nav_bar"
@@ -83,9 +83,9 @@
                 android:layout_width="200dp"
                 android:layout_height="350dp"
                 android:layout_below="@+id/nav_bar_text"
+                android:layout_centerHorizontal="true"
                 android:paddingBottom="12dp"
                 android:paddingTop="12dp"
-                android:layout_centerHorizontal="true"
                 android:src="@drawable/navbar"
                 tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="103dp"
@@ -129,14 +129,14 @@
                 android:layout_below="@id/hearing_test"
                 android:paddingBottom="16dp"
                 android:paddingEnd="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="8dp"
                 android:paddingStart="16dp"
                 android:paddingTop="4dp"
-                android:text="Enter Text Here"
+                android:text="@string/help_hearing"
                 tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="47dp"
-                android:paddingRight="8dp"
-                android:paddingLeft="16dp" />
+                tools:layout_editor_absoluteY="47dp" />
 
             <TextView
                 android:id="@+id/color_test"
@@ -160,14 +160,14 @@
                 android:layout_below="@id/color_test"
                 android:paddingBottom="16dp"
                 android:paddingEnd="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="8dp"
                 android:paddingStart="16dp"
                 android:paddingTop="4dp"
-                android:text="Enter Text Here"
+                android:text="@string/help_colour"
                 tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="47dp"
-                android:paddingRight="8dp"
-                android:paddingLeft="16dp" />
+                tools:layout_editor_absoluteY="47dp" />
 
             <TextView
                 android:id="@+id/eye_test"
@@ -191,14 +191,14 @@
                 android:layout_below="@id/eye_test"
                 android:paddingBottom="16dp"
                 android:paddingEnd="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="8dp"
                 android:paddingStart="16dp"
                 android:paddingTop="4dp"
-                android:text="Enter Text Here"
+                android:text="@string/help_sight"
                 tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="47dp"
-                android:paddingRight="8dp"
-                android:paddingLeft="16dp" />
+                tools:layout_editor_absoluteY="47dp" />
 
             <TextView
                 android:id="@+id/results"
@@ -220,20 +220,20 @@
                 android:layout_below="@id/results"
                 android:paddingBottom="32dp"
                 android:paddingEnd="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="8dp"
                 android:paddingStart="16dp"
                 android:paddingTop="4dp"
-                android:text="Enter Text Here"
+                android:text="@string/help_results"
                 tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="47dp"
-                android:paddingRight="8dp"
-                android:paddingLeft="16dp" />
+                tools:layout_editor_absoluteY="47dp" />
 
             <View
                 android:id="@+id/line"
-                android:layout_below="@id/results_text"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_below="@id/results_text"
                 android:background="@android:color/darker_gray" />
 
             <TextView
@@ -255,17 +255,37 @@
                 android:id="@+id/developer_notes_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:paddingBottom="16dp"
+                android:paddingEnd="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="8dp"
+                android:paddingStart="16dp"
+                android:paddingTop="4dp"
+                android:text="@string/help_notes_text2"
+                android:textSize="10sp"
+                android:textStyle="italic"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="47dp" />
+
+            <TextView
+                android:id="@+id/developer_notes_text3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/developer_notes"
                 android:paddingBottom="16dp"
                 android:paddingEnd="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="8dp"
                 android:paddingStart="16dp"
                 android:paddingTop="4dp"
                 android:text="@string/help_notes_text"
                 tools:ignore="MissingConstraints"
                 tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="47dp"
-                android:paddingRight="8dp"
-                android:paddingLeft="16dp" />
+                tools:layout_editor_absoluteY="47dp" />
 
         </RelativeLayout>
 
