@@ -45,7 +45,7 @@ public class HomeActivity extends BaseNavDrawerActivity implements View.OnClickL
         TextView headerEmail = header.findViewById(R.id.nav_email);
         try {
             //noinspection ConstantConditions
-            headerEmail.setText(auth.getCurrentUser().getEmail());
+            headerEmail.setText(auth.getCurrentUser().getDisplayName());
             //Get Number of test for database
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("users").child
                     (auth.getCurrentUser().getUid()).child("number-of-test");

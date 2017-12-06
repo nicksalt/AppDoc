@@ -115,6 +115,35 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/password_error_text"/>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:id="@+id/layout_login_name"
+            android:layout_centerInParent="true">
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/name_layout"
+                style="@style/FirebaseUI.TextInputLayout.NameField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:transitionGroup="true"
+                android:transitionName="name_field"
+                app:errorEnabled="true"
+                tools:ignore="UnusedAttribute">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/name_text"
+                    style="@style/FirebaseUI.TextInputEditText.NameField" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/name_error_text"/>
+        </LinearLayout>
     </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"

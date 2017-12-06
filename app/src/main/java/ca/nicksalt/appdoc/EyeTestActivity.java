@@ -13,7 +13,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -94,7 +93,7 @@ public class EyeTestActivity extends AppCompatActivity implements View.OnClickLi
 
         //Set up alert dialog
         LayoutInflater layoutInflater = LayoutInflater.from(this);
-        View view = layoutInflater.inflate(R.layout.eye_switch_dialog, null);
+        View view = layoutInflater.inflate(R.layout.dialog_eye_switch, null);
         alertOk = view.findViewById(R.id.eye_test_dialog_button);
         alertOk.setOnClickListener(this);
         alertOk.getBackground().setColorFilter(ContextCompat.getColor(

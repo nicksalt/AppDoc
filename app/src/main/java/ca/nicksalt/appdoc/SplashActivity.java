@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SplashActivity extends AppCompatActivity {
     @Override
@@ -19,8 +21,15 @@ public class SplashActivity extends AppCompatActivity {
         notificationManager.cancelAll();
         // Start home activity
         if(auth.getCurrentUser() != null) {
-            Log.d("Test", auth.getCurrentUser().getEmail());
-            startActivity(new Intent(SplashActivity.this, HomeActivity.class));
+            if (auth.getCurrentUser().getDisplayName() == null ||
+                    auth.getCurrentUser().getDisplayName().equals("")) {
+                auth.signOut();
+                startActivity(new Intent(SplashActivity.this, LoginActivity
+                        .class));
+            } else {
+                Log.d("AppDoc", auth.getCurrentUser().getDisplayName());
+                startActivity(new Intent(SplashActivity.this, HomeActivity.class));
+            }
         } else{
             //TOBE replaced
             startActivity(new Intent(SplashActivity.this, LoginActivity.class));

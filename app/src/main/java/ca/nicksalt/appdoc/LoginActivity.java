@@ -21,9 +21,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.ProviderQueryResult;
-
+import com.google.firebase.auth.UserProfileChangeRequest;
 
 
 public class LoginActivity extends AppCompatActivity implements
@@ -60,6 +61,7 @@ public class LoginActivity extends AppCompatActivity implements
         forgotPassword.setOnClickListener(this);
         findViewById(R.id.email_button).setOnClickListener(this);
         findViewById(R.id.google_button).setOnClickListener(this);
+        currentView = findViewById(R.id.layout_login_buttons);
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.google_web_client_ID))
@@ -80,7 +82,7 @@ public class LoginActivity extends AppCompatActivity implements
         int i = view.getId();
         // Setup via email
         if (i == R.id.email_button) {
-            findViewById(R.id.layout_login_buttons).setVisibility(View.GONE);
+            currentView.setVisibility(View.GONE);
             currentView = findViewById(R.id.layout_email_address);
             currentView.setVisibility(View.VISIBLE);
             emailContinue.setVisibility(View.VISIBLE);
@@ -168,9 +170,9 @@ public class LoginActivity extends AppCompatActivity implements
             public void onComplete(@NonNull Task<ProviderQueryResult> task) {
                 if (task.isSuccessful()) {
                     try {
+                        currentView.setVisibility(View.GONE);
                         //Already a user?
                         if (task.getResult().getProviders().size() > 0) {
-                            findViewById(R.id.layout_email_address).setVisibility(View.GONE);
                             //Login, no need to sign up
                             currentView = findViewById(R.id.layout_password);
                             currentView.setVisibility(View.VISIBLE);
@@ -181,7 +183,6 @@ public class LoginActivity extends AppCompatActivity implements
                         }
                         //Not a user, sign up
                         else {
-                            findViewById(R.id.layout_email_address).setVisibility(View.GONE);
                             currentView = findViewById(R.id.layout_password);
                             currentView.setVisibility(View.VISIBLE);
                             emailContinue.setText(getString(R.string.sign_up));
@@ -206,7 +207,7 @@ public class LoginActivity extends AppCompatActivity implements
                         if (task.isSuccessful()) {
                             // Sign in success
                             hideProgressDialog();
-                            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                            checkDisplayName();
 
                         }else {
                             // If sign in fails, display a message to the user.
@@ -227,7 +228,7 @@ public class LoginActivity extends AppCompatActivity implements
                         if (task.isSuccessful()) {
                             // Sign up success
                             hideProgressDialog();
-                            startActivity(new Intent(LoginActivity.this, InitialTutorial.class));
+                            checkDisplayName();
                         } else {
                             // If sign up fails, display a message to the user.
                             passwordError.setText(getString(R.string.server_error));
@@ -250,7 +251,7 @@ public class LoginActivity extends AppCompatActivity implements
                         if (task.isSuccessful()) {
                             // Sign in success
                             hideProgressDialog();
-                            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                            checkDisplayName();
                         }
                         // Failed, likely connection issue
                         else {
@@ -261,6 +262,47 @@ public class LoginActivity extends AppCompatActivity implements
                         hideProgressDialog();
                     }
                 });
+    }
+
+    private void checkDisplayName(){
+        final FirebaseUser user = auth.getCurrentUser();
+        if (user != null && (user.getDisplayName() == null || user.getDisplayName().equals(""))){
+            currentView.setVisibility(View.GONE);
+            currentView = findViewById(R.id.layout_login_name);
+            currentView.setVisibility(View.VISIBLE);
+            emailContinue.setVisibility(View.VISIBLE);
+            forgotPassword.setVisibility(View.GONE);
+            emailContinue.setText("Alight, Let's Go!");
+            mainText.setText("Please enter your first and last name.");
+            emailContinue.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showProgressDialog();
+                    String name = ((TextView)findViewById(R.id.name_text)).getText().toString();
+                    if (!name.equals("") && !name.equals(" ")) {
+                        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                .setDisplayName(name)
+                                .build();
+                        user.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    hideProgressDialog();
+                                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                                }
+                            }
+                        });
+                    } else {
+                        hideProgressDialog();
+                        ((TextView)findViewById(R.id.name_error_text)).setText("Invalid name.");
+                    }
+                }
+            });
+        } else {
+            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+        }
+
+
     }
 
     private boolean isValidEmail(CharSequence target) {

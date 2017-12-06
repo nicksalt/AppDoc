@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="ca.nicksalt.appdoc.ResultsActivity"
-    tools:showIn="@layout/app_bar_results">
+    tools:showIn="@layout/app_bar_results"
+    android:id="@+id/results_overall_layout">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
