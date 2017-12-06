@@ -288,7 +288,7 @@ public class LoginActivity extends AppCompatActivity implements
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()) {
                                     hideProgressDialog();
-                                    startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                                    startActivity(new Intent(LoginActivity.this, InitialTutorial.class));
                                 }
                             }
                         });
