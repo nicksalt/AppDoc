@@ -227,7 +227,7 @@ public class LoginActivity extends AppCompatActivity implements
                         if (task.isSuccessful()) {
                             // Sign up success
                             hideProgressDialog();
-                            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                            startActivity(new Intent(LoginActivity.this, InitialTutorial.class));
                         } else {
                             // If sign up fails, display a message to the user.
                             passwordError.setText(getString(R.string.server_error));

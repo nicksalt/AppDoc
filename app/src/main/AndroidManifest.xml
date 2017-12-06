@@ -73,6 +73,7 @@
             android:name=".AndroidHelpActivity"
             android:label="@string/title_activity_android_help"
             android:theme="@style/AppTheme" />
+        <activity android:name=".InitialTutorial"></activity>
     </application>
 
 </manifest>

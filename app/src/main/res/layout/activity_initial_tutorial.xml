@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ca.nicksalt.appdoc.InitialTutorial">
+
+    <LinearLayout
+        android:id="@+id/tutorialPage4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="invisible">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="More Help"
+            android:textAlignment="center"
+            android:textSize="35sp"
+            android:textStyle="bold" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="65dp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="281dp"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/helppage" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="25dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Still need some guidance? Select 'Help' from the home menu to view the app help guide."
+            android:textAlignment="center"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/tutorialNext3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Finish" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/tutorialPage3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="invisible">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Viewing Results"
+            android:textAlignment="center"
+            android:textSize="35sp"
+            android:textStyle="bold" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="65dp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="281dp"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/navmenu" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="25dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select 'Results' from the home menu to view all test results."
+            android:textAlignment="center"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/tutorialNext2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Next" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/tutorialPage2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="invisible">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Starting a Test"
+            android:textAlignment="center"
+            android:textSize="35sp"
+            android:textStyle="bold" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="65dp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="281dp"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/home" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="25dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="On the home page, select any test to start finding results about your vision, colour, or hearing."
+            android:textAlignment="center"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/tutorialNext1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Next" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/tutorialPage1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="98dp">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="124dp"
+            android:layout_weight="50%"
+            app:srcCompat="@mipmap/ic_launcher_round" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
+            android:layout_weight="50%" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="265dp"
+            android:layout_weight="1"
+            android:text="Welcome to AppDoc!"
+            android:textAlignment="center"
+            android:textSize="35sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="50%"
+            android:text="Lets go over a few things before we start"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/tutorialbegin"
+            android:layout_width="match_parent"
+            android:layout_height="116dp"
+            android:layout_weight="50%"
+            android:text="Begin" />
+
+        <Button
+            android:id="@+id/tutorialskip"
+            android:layout_width="match_parent"
+            android:layout_height="66dp"
+            android:layout_weight="50%"
+            android:text="Skip Tutorial" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
