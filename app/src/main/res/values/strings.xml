@@ -155,5 +155,16 @@
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="title_activity_user_preference">PreferenceActivity</string>
     <string name="title_activity_android_help">Help</string>
+    <string name="help_home_title">Home</string>
+    <string name="help_home_text">It was our goal to make the Home Page as user-friendly as possible. Simply select one of the test you would like to complete and it will initiate.</string>
+    <string name="help_navigation_title">Navigation Bar</string>
+    <string name="help_navigation_text">Layout a walkway, with visible start and end point, and measure the walkway length. Have the person stand at the start point, facing along the walkway.</string>
+    <string name="help_navbar_list">1. Selecting \'Home\' returns you to the Home Screen \n2. Selecting \'Results\' take you to the Results page \n3. Selecting \'Help\' brought you here! \n4. Selecting \'Sign Out\' signs you out of you Account, for more information see Account</string>
+    <string name="help_hearing_title">Hearing Test</string>
+    <string name="help_color_title">Color Test</string>
+    <string name="help_eye_title">Eye Test</string>
+    <string name="help_results_title">Results</string>
+    <string name="help_developer_notes_title">Developer Comments</string>
+    <string name="help_notes_text">AppDoc allows you to test your hearing, visual acuity, and colour vision. Our goal was to make it easier for people to check their eyes, color vision and hearing in one app.</string>
 </resources>
 

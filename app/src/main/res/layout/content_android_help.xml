@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,4 +8,267 @@
     tools:context="ca.nicksalt.appdoc.AndroidHelpActivity"
     tools:showIn="@layout/activity_android_help">
 
-</android.support.constraint.ConstraintLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:paddingBottom="4dp"
+                android:paddingLeft="12dp"
+                android:text="@string/help_home_title"
+                android:textSize="20sp"
+                tools:ignore="MissingConstraints,RtlSymmetry"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="0dp"
+                android:paddingStart="12dp" />
+
+            <TextView
+                android:id="@+id/home_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/home"
+                android:paddingBottom="0dp"
+                android:paddingEnd="8dp"
+                android:paddingStart="16dp"
+                android:paddingTop="4dp"
+                android:text="@string/help_home_text"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="47dp"
+                android:paddingRight="8dp"
+                android:paddingLeft="16dp" />
+
+            <TextView
+                android:id="@+id/nav_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/home_text"
+                android:paddingBottom="4dp"
+                android:paddingLeft="12dp"
+                android:paddingStart="12dp"
+                android:paddingTop="16dp"
+                android:text="@string/help_navigation_title"
+                android:textSize="20sp"
+                tools:ignore="MissingConstraints,RtlSymmetry"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="103dp" />
+
+            <TextView
+                android:id="@+id/nav_bar_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/nav_bar"
+                android:paddingBottom="0dp"
+                android:paddingEnd="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="8dp"
+                android:paddingStart="16dp"
+                android:paddingTop="4dp"
+                android:text="@string/help_navigation_text"
+                android:textSize="14sp"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="150dp" />
+
+            <ImageView
+                android:id="@+id/navbar_image"
+                android:layout_width="200dp"
+                android:layout_height="350dp"
+                android:layout_below="@+id/nav_bar_text"
+                android:paddingBottom="12dp"
+                android:paddingTop="12dp"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/navbar"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="103dp"
+                tools:layout_editor_absoluteY="206dp" />
+
+            <TextView
+                android:id="@+id/nav_bar_list"
+                android:layout_width="383dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/navbar_image"
+                android:paddingEnd="8dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="8dp"
+                android:paddingStart="16dp"
+                android:paddingTop="4dp"
+                android:text="@string/help_navbar_list"
+                android:textSize="14sp"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="1dp"
+                tools:layout_editor_absoluteY="483dp" />
+
+            <TextView
+                android:id="@+id/hearing_test"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/nav_bar_list"
+                android:paddingBottom="4dp"
+                android:paddingLeft="12dp"
+                android:paddingStart="12dp"
+                android:paddingTop="16dp"
+                android:text="@string/help_hearing_title"
+                android:textSize="20sp"
+                tools:ignore="MissingConstraints,RtlSymmetry"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="103dp" />
+
+            <TextView
+                android:id="@+id/hearing_test_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/hearing_test"
+                android:paddingBottom="16dp"
+                android:paddingEnd="8dp"
+                android:paddingStart="16dp"
+                android:paddingTop="4dp"
+                android:text="Enter Text Here"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="47dp"
+                android:paddingRight="8dp"
+                android:paddingLeft="16dp" />
+
+            <TextView
+                android:id="@+id/color_test"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/hearing_test_text"
+                android:paddingBottom="4dp"
+                android:paddingLeft="12dp"
+                android:paddingStart="12dp"
+                android:paddingTop="16dp"
+                android:text="@string/help_color_title"
+                android:textSize="20sp"
+                tools:ignore="MissingConstraints,RtlSymmetry"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="103dp" />
+
+            <TextView
+                android:id="@+id/color_test_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/color_test"
+                android:paddingBottom="16dp"
+                android:paddingEnd="8dp"
+                android:paddingStart="16dp"
+                android:paddingTop="4dp"
+                android:text="Enter Text Here"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="47dp"
+                android:paddingRight="8dp"
+                android:paddingLeft="16dp" />
+
+            <TextView
+                android:id="@+id/eye_test"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/color_test_text"
+                android:paddingBottom="4dp"
+                android:paddingLeft="12dp"
+                android:paddingStart="12dp"
+                android:paddingTop="16dp"
+                android:text="@string/help_eye_title"
+                android:textSize="20sp"
+                tools:ignore="MissingConstraints,RtlSymmetry"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="103dp" />
+
+            <TextView
+                android:id="@+id/eye_test_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/eye_test"
+                android:paddingBottom="16dp"
+                android:paddingEnd="8dp"
+                android:paddingStart="16dp"
+                android:paddingTop="4dp"
+                android:text="Enter Text Here"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="47dp"
+                android:paddingRight="8dp"
+                android:paddingLeft="16dp" />
+
+            <TextView
+                android:id="@+id/results"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/eye_test_text"
+                android:paddingBottom="4dp"
+                android:paddingLeft="12dp"
+                android:paddingStart="12dp"
+                android:paddingTop="16dp"
+                android:text="@string/help_results_title"
+                android:textSize="20sp"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/results_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/results"
+                android:paddingBottom="32dp"
+                android:paddingEnd="8dp"
+                android:paddingStart="16dp"
+                android:paddingTop="4dp"
+                android:text="Enter Text Here"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="47dp"
+                android:paddingRight="8dp"
+                android:paddingLeft="16dp" />
+
+            <View
+                android:id="@+id/line"
+                android:layout_below="@id/results_text"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray" />
+
+            <TextView
+                android:id="@+id/developer_notes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line"
+                android:paddingBottom="4dp"
+                android:paddingLeft="12dp"
+                android:paddingStart="12dp"
+                android:paddingTop="16dp"
+                android:text="@string/help_developer_notes_title"
+                android:textSize="20sp"
+                tools:ignore="MissingConstraints,RtlSymmetry"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="103dp" />
+
+            <TextView
+                android:id="@+id/developer_notes_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/developer_notes"
+                android:paddingBottom="16dp"
+                android:paddingEnd="8dp"
+                android:paddingStart="16dp"
+                android:paddingTop="4dp"
+                android:text="@string/help_notes_text"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="0dp"
+                tools:layout_editor_absoluteY="47dp"
+                android:paddingRight="8dp"
+                android:paddingLeft="16dp" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

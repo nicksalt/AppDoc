@@ -12,18 +12,10 @@ public class AndroidHelpActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_android_help);
 
-        setupToolBar();
-    }
-
-    private void setupToolBar() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-
         if (toolbar == null) return;
-
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_close_white_24dp);
     }
 
