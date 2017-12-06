@@ -82,6 +82,7 @@
     <string name="eye_test_result_not_good">Your results are not great. We think it would be best if you made an appointment with a trained professional as soon as possible. Click below to find an optometrist near you.</string>
     <string name="eye_test_result_poor">Unfortunately you failed our test. We think it would be best if you made an appointment with a trained professional immediately. Click below to find an optometrist near you.</string>
 
+    <string name="storage">No storage available to save document</string>
 
     <!-- Strings related to Settings -->
 

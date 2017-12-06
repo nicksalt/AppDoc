@@ -1,31 +1,55 @@
 package ca.nicksalt.appdoc;
 
+import android.*;
+import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class ResultsActivity extends BaseNavDrawerActivity {
 
@@ -39,6 +63,12 @@ public class ResultsActivity extends BaseNavDrawerActivity {
     NavigationView navigationView;
 
     float dp_scale;
+
+    final int WRITE_EXTERNAL_STORAGE_CODE = 24;
+    final int READ_EXTERNAL_STORAGE_CODE = 25;
+
+
+    File pdfFile;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // Database stuff takes longer to load so show dialog
@@ -297,5 +327,91 @@ public class ResultsActivity extends BaseNavDrawerActivity {
         super.onResume();
         //Set Home to current selected in nav bar
         navigationView.getMenu().getItem(1).setChecked(true);
+    }
+   /* @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case WRITE_EXTERNAL_STORAGE_CODE: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    checkForPermissions(false);
+                else
+                    Toast.makeText(this, "Permission must be granted",
+                            Toast.LENGTH_SHORT).show();
+            } case READ_EXTERNAL_STORAGE_CODE: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    generatePDF();
+                else
+                    Toast.makeText(this, "Permission must be granted",
+                            Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    public void checkForPermissions(boolean write){
+        if (write) {
+            // Here, thisActivity is the current activity
+            if (ContextCompat.checkSelfPermission(this,
+                    android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        WRITE_EXTERNAL_STORAGE_CODE);
+            } else
+                generatePDF();
+        } else {
+            if (ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        READ_EXTERNAL_STORAGE_CODE);
+            } else
+                generatePDF();
+        }
+    }*/
+
+    private void getBitmaps() {
+
+    }
+
+
+    private Bitmap getBitmapFromView(View view, int totalHeight, int totalWidth) {
+        //method to get bitmap of a view larger than the screen itself(Scroll View)
+        Bitmap returnedBitmap = Bitmap.createBitmap(totalWidth,totalHeight , Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(returnedBitmap);
+        Drawable bgDrawable = view.getBackground();
+        if (bgDrawable != null)
+            bgDrawable.draw(canvas);
+        else
+            canvas.drawColor(Color.WHITE);
+        view.draw(canvas);
+        Log.d("AppDoc", totalHeight + " "+ view.toString() +" " + totalWidth );
+
+        return returnedBitmap;
+    }
+
+    private void addImage(Document d, byte[] b){
+        //add Image to document
+        Image image;
+        try{
+            image = Image.getInstance(b);
+        } catch(Exception e){
+            e.printStackTrace();
+            return;
+        }
+        try{
+            //Make width of image equal to width of page
+            float scaler = ((d.getPageSize().getWidth() - d.leftMargin()
+                    - d.rightMargin()) / image.getWidth()) * 100;
+            image.scalePercent(scaler);
+            d.add(image);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
