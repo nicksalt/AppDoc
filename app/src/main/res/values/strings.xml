@@ -171,6 +171,6 @@
     <string name="help_results_title">Results</string>
     <string name="help_developer_notes_title">Developer Comments</string>
     <string name="help_notes_text">AppDoc allows you to test your hearing, visual acuity, and colour vision. Our goal was to make it easier for people to check their eyes, color vision and hearing in one app.</string>
-    <string name="help_notes_text2">References:\nHearing Test Data: http://onlinetonegenerator.com/hearingtest-results.html\nColour Test Data:\nEyesight Test Data:</string>
+    <string name="help_notes_text2">References:\nHearing Test Data: http://onlinetonegenerator.com/hearingtest-results.html\nColour Test Data: http://www.colour-blindness.com/colour-blindness-tests/ishihara-colour-test-plates/\nEyesight Test Data: https://www.essilor.com/en/vision-tests/test-your-vision/</string>
 </resources>
 

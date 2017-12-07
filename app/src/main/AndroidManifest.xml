@@ -63,7 +63,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ca.nicksalt.appdoc.HomeActivity" />
         </activity>
-        <activity android:name=".SettingsActivity" />
+        <activity android:name=".SettingsActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".HelpActivity"
             android:screenOrientation="portrait"
@@ -72,8 +73,10 @@
         <activity
             android:name=".AndroidHelpActivity"
             android:label="@string/title_activity_android_help"
-            android:theme="@style/AppTheme" />
-        <activity android:name=".InitialTutorial"></activity>
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
+        <activity android:name=".InitialTutorial"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

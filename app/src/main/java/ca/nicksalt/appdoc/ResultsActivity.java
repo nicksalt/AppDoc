@@ -96,6 +96,8 @@ public class ResultsActivity extends BaseNavDrawerActivity {
 
     File pdfFile;
 
+    long tests = 0;
+
     boolean pdfGenerating = false;
     private int pdfStep;
     ArrayList<Bitmap> bitmaps = new ArrayList<>();
@@ -169,10 +171,13 @@ public class ResultsActivity extends BaseNavDrawerActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     if (dataSnapshot.getValue() == null || (Long) dataSnapshot.getValue() == 0){
                         headerTest.setText("Complete your first test!");
+                        tests = 0;
                     } else if((Long) dataSnapshot.getValue() == 1) {
-                        headerTest.setText((Long) dataSnapshot.getValue() + " Test Completed");
+                        tests = (long)dataSnapshot.getValue();
+                        headerTest.setText(tests + " Test Completed");
                     } else{
-                        headerTest.setText((Long) dataSnapshot.getValue() + " Tests Completed");
+                        tests = (long)dataSnapshot.getValue();
+                        headerTest.setText(tests + " Tests Completed");
                     }
                 }
                 @Override
@@ -462,80 +467,84 @@ public class ResultsActivity extends BaseNavDrawerActivity {
     }
 
     public void getBitmaps() {
-        switch (pdfStep){
-            case 0:
-                showProgressDialog();
-                Log.d("AppDoc", "Colour loop");
-                pdfGenerating = true;
-                colourTest();
-                break;
-            case 1:
-                if (colourTable.getChildCount() > 0)
-                    bitmaps.add(getBitmapFromView());
-                pdfStep++;
-                getBitmaps();
-                break;
-            case 2:
-                eyeTest();
-                Log.d("AppDoc", "Eye loop");
-                break;
-            case 3:
-                if (eyeTable.getChildCount() > 0)
-                    bitmaps.add(getBitmapFromView());
-                pdfStep++;
-                getBitmaps();
-                break;
-            case 4:
-                hearingTest();
-                Log.d("AppDoc", "Hearing loop");
-                break;
-            case 5:
-                if (hearingTable.getChildCount() > 0)
-                    bitmaps.add(getBitmapFromView());
-                pdfStep++;
-                getBitmaps();
-                break;
-            case 6:
-                Log.d("AppDoc", "Finished loop");
-                generatePDF();
-                break;
-            case 7:
-                hideProgressDialog();
-                pdfGenerating=false;
-                final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
-                View view = LayoutInflater.from(this).inflate(R.layout.dialog_pdf, null);
-                Button cancel = view.findViewById(R.id.pdf_dialog_cancel);
-                cancel.getBackground().setColorFilter(ContextCompat.getColor(
-                        this, R.color.colorPrimaryDark), PorterDuff.Mode.MULTIPLY);
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        alertDialog.dismiss();
-                    }
-                });
-                Button ok = view.findViewById(R.id.pdf_dialog_ok);
-                ok.getBackground().setColorFilter(ContextCompat.getColor(
-                        this, R.color.colorPrimaryDark), PorterDuff.Mode.MULTIPLY);
-                ok.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent pdfIntent = new Intent();
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        Log.d("AppDoc", pdfFile.getAbsolutePath());
-                        pdfIntent.setDataAndType(Uri.fromFile(pdfFile), "application/pdf");
-                        if (pdfIntent.resolveActivity(getPackageManager()) != null)
-                            startActivity(Intent.createChooser(pdfIntent, "Open with:"));
-                        alertDialog.dismiss();
-                    }
-                });
-
-                alertDialog.setView(view);
-                alertDialog.show();
-                if (currentTable == colourTable)
+        if(tests > 0) {
+            switch (pdfStep) {
+                case 0:
+                    showProgressDialog();
+                    Log.d("AppDoc", "Colour loop");
+                    pdfGenerating = true;
                     colourTest();
-                else if (currentTable == eyeTable)
+                    break;
+                case 1:
+                    if (colourTable.getChildCount() > 0)
+                        bitmaps.add(getBitmapFromView());
+                    pdfStep++;
+                    getBitmaps();
+                    break;
+                case 2:
                     eyeTest();
-                break;
+                    Log.d("AppDoc", "Eye loop");
+                    break;
+                case 3:
+                    if (eyeTable.getChildCount() > 0)
+                        bitmaps.add(getBitmapFromView());
+                    pdfStep++;
+                    getBitmaps();
+                    break;
+                case 4:
+                    hearingTest();
+                    Log.d("AppDoc", "Hearing loop");
+                    break;
+                case 5:
+                    if (hearingTable.getChildCount() > 0)
+                        bitmaps.add(getBitmapFromView());
+                    pdfStep++;
+                    getBitmaps();
+                    break;
+                case 6:
+                    Log.d("AppDoc", "Finished loop");
+                    generatePDF();
+                    break;
+                case 7:
+                    hideProgressDialog();
+                    pdfGenerating = false;
+                    final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+                    View view = LayoutInflater.from(this).inflate(R.layout.dialog_pdf, null);
+                    Button cancel = view.findViewById(R.id.pdf_dialog_cancel);
+                    cancel.getBackground().setColorFilter(ContextCompat.getColor(
+                            this, R.color.colorPrimaryDark), PorterDuff.Mode.MULTIPLY);
+                    cancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            alertDialog.dismiss();
+                        }
+                    });
+                    Button ok = view.findViewById(R.id.pdf_dialog_ok);
+                    ok.getBackground().setColorFilter(ContextCompat.getColor(
+                            this, R.color.colorPrimaryDark), PorterDuff.Mode.MULTIPLY);
+                    ok.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Intent pdfIntent = new Intent();
+                            Intent intent = new Intent(Intent.ACTION_VIEW);
+                            Log.d("AppDoc", pdfFile.getAbsolutePath());
+                            pdfIntent.setDataAndType(Uri.fromFile(pdfFile), "application/pdf");
+                            if (pdfIntent.resolveActivity(getPackageManager()) != null)
+                                startActivity(Intent.createChooser(pdfIntent, "Open with:"));
+                            alertDialog.dismiss();
+                        }
+                    });
+
+                    alertDialog.setView(view);
+                    alertDialog.show();
+                    if (currentTable == colourTable)
+                        colourTest();
+                    else if (currentTable == eyeTable)
+                        eyeTest();
+                    break;
+            }
+        } else {
+            Toast.makeText(this, "Please complete your first test.", Toast.LENGTH_LONG).show();
         }
 
     }

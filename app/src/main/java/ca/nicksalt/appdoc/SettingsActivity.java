@@ -2,6 +2,7 @@ package ca.nicksalt.appdoc;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,14 +19,18 @@ public class SettingsActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        getFragmentManager().beginTransaction().replace(R.id.content_frame, new PreferencesActivity()).commit();
-
+        getFragmentManager().beginTransaction().replace(R.id.content_frame,
+                new PreferencesActivity()).commit();
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
             }
         });
+
+        SharedPreferences preferences = this.getSharedPreferences("settings",
+                MODE_PRIVATE);
+
     }
 
 

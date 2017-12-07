@@ -329,7 +329,7 @@ public class HearingTestActivity extends AppCompatActivity {
         // Send notification
         Intent intent = new Intent(HearingTestActivity.this, Receiver.class);
         intent.putExtra("test", "hearing");
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(HearingTestActivity.this, (int)System.currentTimeMillis(), intent, PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(HearingTestActivity.this, 4, intent, PendingIntent.FLAG_ONE_SHOT);
         AlarmManager am = (AlarmManager)getSystemService(ALARM_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             am.setExact(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + TimeUnit.DAYS.toMillis(7), pendingIntent);
