@@ -550,7 +550,7 @@ public class ResultsActivity extends BaseNavDrawerActivity {
     }
     public void generatePDF() {
         Log.d("AppDoc", hearingTable.getChildCount() + " "+ " " + hearingTable.getHeight());
-
+    // Using iTextPDF5 library
         final Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -634,6 +634,7 @@ public class ResultsActivity extends BaseNavDrawerActivity {
     }
 
     private Bitmap getBitmapFromView() {
+        //View --> Bitmap
         ScrollView view = findViewById(R.id.result_scroll_view);
         int totalHeight = view.getChildAt(0).getHeight();
         int totalWidth = view.getChildAt(0).getWidth();
@@ -685,6 +686,7 @@ public class ResultsActivity extends BaseNavDrawerActivity {
     }
 
     private void spiltBitmap(Float ratio, Document d, byte[] b) {
+        //Split bitmap into seperate bitmaps if too long
         Bitmap bitmap = BitmapFactory.decodeByteArray(b, 0, b.length);
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         int i = 1;

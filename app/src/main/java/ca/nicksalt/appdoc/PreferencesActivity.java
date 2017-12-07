@@ -30,13 +30,13 @@ public class PreferencesActivity extends PreferenceFragment {
     public void onCreate(final Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.pref_general);
+        // Get current preferences and set them
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
         final SwitchPreference notifications = (SwitchPreference)findPreference("notifications");
-        notifications.getView(null, null).setBackgroundColor(getResources().getColor(R.color
-                .colorPrimaryDark));
         notification = prefs.getBoolean("notifications", true);
         notifications.setDefaultValue(notification);
+        //Change preference
         notifications.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {

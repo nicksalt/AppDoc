@@ -18,6 +18,8 @@ import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * Created by nick on 2017-11-15.
+ * Base Nav Activity, ever Activity that has a navbar will extend
+ * this class.
  */
 
 public abstract class BaseNavDrawerActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {

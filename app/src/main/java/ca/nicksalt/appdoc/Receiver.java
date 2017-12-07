@@ -22,6 +22,7 @@ import static android.content.Context.NOTIFICATION_SERVICE;
 public class Receiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
+        //Get received class
         if (intent.getStringExtra("test").equals("eye")) {
             showNotification(context, "Eye", new Intent(context, EyeTestActivity.class), R.drawable
                     .ic_eye_test);
@@ -33,6 +34,7 @@ public class Receiver extends BroadcastReceiver {
     }
 
     public void showNotification(Context context, String test, Intent testIntent, int logo) {
+        //Create Notification base on preferred settings
         final String NOTIFICATION_CHANNEL_ID = "appdoc_channel";
         NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
@@ -60,6 +62,7 @@ public class Receiver extends BroadcastReceiver {
         mBuilder.setDefaults(Notification.DEFAULT_SOUND);
         mBuilder.setAutoCancel(true);
 
+        assert mNotificationManager != null;
         mNotificationManager.notify(0, mBuilder.build());
     }
 }
